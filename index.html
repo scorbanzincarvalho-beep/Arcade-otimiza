@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08050d">
+    <link rel="icon" type="image/png" href="favicon.png">
     <title>Arcade - Otimiza</title>
 
     <style>
@@ -12,6 +14,8 @@
             box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             background: #08050d;
@@ -24,12 +28,18 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #241333;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(8, 5, 13, 0.94);
+            backdrop-filter: blur(10px);
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
             color: #a855f7;
+            letter-spacing: 1px;
         }
 
         nav a {
@@ -38,9 +48,7 @@
             margin-left: 25px;
         }
 
-        nav a:hover {
-            color: #a855f7;
-        }
+        nav a:hover { color: #a855f7; }
 
         .hero {
             min-height: 75vh;
@@ -49,18 +57,23 @@
             align-items: center;
             text-align: center;
             padding: 60px 20px;
-            background:
-                radial-gradient(circle at center, #351052 0%, #08050d 55%);
+            background: radial-gradient(circle at center, #351052 0%, #08050d 55%);
+        }
+
+        .hero-logo {
+            width: min(720px, 90vw);
+            max-height: 260px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 25px rgba(168, 85, 247, .35));
         }
 
         .hero h1 {
-            font-size: 58px;
+            font-size: 48px;
             margin-bottom: 20px;
         }
 
-        .hero h1 span {
-            color: #a855f7;
-        }
+        .hero h1 span { color: #a855f7; }
 
         .hero p {
             color: #b9b0c2;
@@ -70,9 +83,7 @@
             line-height: 1.6;
         }
 
-        .buttons {
-            margin-top: 35px;
-        }
+        .buttons { margin-top: 35px; }
 
         .button {
             display: inline-block;
@@ -81,6 +92,11 @@
             text-decoration: none;
             font-weight: bold;
             margin: 6px;
+            transition: .2s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
         }
 
         .primary {
@@ -88,9 +104,7 @@
             color: white;
         }
 
-        .primary:hover {
-            background: #a855f7;
-        }
+        .primary:hover { background: #a855f7; }
 
         .secondary {
             border: 1px solid #9333ea;
@@ -121,6 +135,12 @@
             padding: 35px;
             width: 330px;
             text-align: left;
+            transition: .2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #7e22ce;
         }
 
         .card.plus {
@@ -184,13 +204,9 @@
         }
 
         @media (max-width: 700px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            nav {
-                display: none;
-            }
+            .hero h1 { font-size: 34px; }
+            nav { display: none; }
+            .hero-logo { max-height: 190px; }
         }
     </style>
 </head>
@@ -209,6 +225,8 @@
 
 <section class="hero">
     <div>
+        <img src="logo.png" alt="Arcade - Otimiza" class="hero-logo">
+
         <h1>Mais desempenho.<br><span>Menos limitações.</span></h1>
 
         <p>
@@ -224,14 +242,11 @@
 </section>
 
 <section class="plans" id="planos">
-
     <h2>Escolha seu plano</h2>
 
     <div class="cards">
-
         <div class="card">
             <h3>Básico</h3>
-
             <div class="price">R$ 9,90</div>
 
             <ul>
@@ -246,7 +261,6 @@
 
         <div class="card plus">
             <h3>Plus</h3>
-
             <div class="price">R$ 19,90</div>
 
             <ul>
@@ -259,12 +273,10 @@
 
             <a href="#" class="button primary">Comprar</a>
         </div>
-
     </div>
 </section>
 
 <section class="faq" id="faq">
-
     <h2>Perguntas frequentes</h2>
 
     <details>
@@ -298,7 +310,6 @@
             scorbanzincarvalho@gmail.com.
         </p>
     </details>
-
 </section>
 
 <footer>
