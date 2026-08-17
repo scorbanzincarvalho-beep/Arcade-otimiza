@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade - Otimiza</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #08050d;
+            color: white;
+        }
+
+        header {
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #241333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #a855f7;
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        nav a:hover {
+            color: #a855f7;
+        }
+
+        .hero {
+            min-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            background:
+                radial-gradient(circle at center, #351052 0%, #08050d 55%);
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #a855f7;
+        }
+
+        .hero p {
+            color: #b9b0c2;
+            font-size: 19px;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.6;
+        }
+
+        .buttons {
+            margin-top: 35px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 6px;
+        }
+
+        .primary {
+            background: #9333ea;
+            color: white;
+        }
+
+        .primary:hover {
+            background: #a855f7;
+        }
+
+        .secondary {
+            border: 1px solid #9333ea;
+            color: white;
+        }
+
+        .plans {
+            padding: 80px 8%;
+            text-align: center;
+        }
+
+        .plans h2 {
+            font-size: 38px;
+            margin-bottom: 45px;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #100a18;
+            border: 1px solid #2d183d;
+            border-radius: 15px;
+            padding: 35px;
+            width: 330px;
+            text-align: left;
+        }
+
+        .card.plus {
+            border: 1px solid #a855f7;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
+        }
+
+        .card h3 {
+            font-size: 25px;
+            color: #a855f7;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 18px 0;
+        }
+
+        .card ul {
+            list-style: none;
+            color: #c8c0ce;
+            line-height: 2;
+            margin-bottom: 25px;
+        }
+
+        .faq {
+            padding: 80px 8%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .faq h2 {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        details {
+            background: #100a18;
+            border: 1px solid #2d183d;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 12px;
+        }
+
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        details p {
+            color: #bbb;
+            margin-top: 12px;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 35px;
+            border-top: 1px solid #241333;
+            color: #777;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">ARCADE - OTIMIZA</div>
+
+    <nav>
+        <a href="#planos">Planos</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:scorbanzincarvalho@gmail.com">Suporte</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>Mais desempenho.<br><span>Menos limitações.</span></h1>
+
+        <p>
+            Otimizações e conteúdos para ajudar você a extrair
+            mais desempenho do seu computador e melhorar sua experiência nos jogos.
+        </p>
+
+        <div class="buttons">
+            <a href="#planos" class="button primary">Ver planos</a>
+            <a href="#faq" class="button secondary">Perguntas frequentes</a>
+        </div>
+    </div>
+</section>
+
+<section class="plans" id="planos">
+
+    <h2>Escolha seu plano</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Básico</h3>
+
+            <div class="price">R$ 9,90</div>
+
+            <ul>
+                <li>✓ Conteúdos de otimização</li>
+                <li>✓ Vídeos básicos</li>
+                <li>✓ Guias para Windows</li>
+                <li>✓ Acesso à área do cliente</li>
+            </ul>
+
+            <a href="#" class="button primary">Comprar</a>
+        </div>
+
+        <div class="card plus">
+            <h3>Plus</h3>
+
+            <div class="price">R$ 19,90</div>
+
+            <ul>
+                <li>✓ Tudo do plano Básico</li>
+                <li>✓ Vídeos avançados</li>
+                <li>✓ Otimizações adicionais</li>
+                <li>✓ Conteúdo exclusivo</li>
+                <li>✓ Acesso à área do cliente</li>
+            </ul>
+
+            <a href="#" class="button primary">Comprar</a>
+        </div>
+
+    </div>
+</section>
+
+<section class="faq" id="faq">
+
+    <h2>Perguntas frequentes</h2>
+
+    <details>
+        <summary>Como recebo meu acesso?</summary>
+        <p>
+            Após a confirmação do pagamento, o acesso ao conteúdo
+            correspondente ao seu plano será liberado.
+        </p>
+    </details>
+
+    <details>
+        <summary>Qual a diferença entre os planos?</summary>
+        <p>
+            O plano Plus possui conteúdos adicionais e materiais
+            mais completos em relação ao plano Básico.
+        </p>
+    </details>
+
+    <details>
+        <summary>Preciso instalar algum programa?</summary>
+        <p>
+            Isso depende do conteúdo adquirido. As instruções serão
+            apresentadas dentro da área do cliente.
+        </p>
+    </details>
+
+    <details>
+        <summary>Como entro em contato com o suporte?</summary>
+        <p>
+            Você pode entrar em contato pelo e-mail
+            scorbanzincarvalho@gmail.com.
+        </p>
+    </details>
+
+</section>
+
+<footer>
+    © 2026 Arcade - Otimiza. Todos os direitos reservados.
+</footer>
+
+</body>
+</html>
