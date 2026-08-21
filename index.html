@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Conexão3D | Impressão 3D</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             background: #080808;
             color: white;
+            font-family: Arial, sans-serif;
         }
 
         /* MENU */
@@ -24,72 +33,113 @@
         header {
             position: fixed;
             top: 0;
+            left: 0;
+
             width: 100%;
+
             padding: 20px 7%;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(8, 8, 8, 0.85);
+
+            background: rgba(8,8,8,.85);
+
             backdrop-filter: blur(10px);
-            z-index: 100;
+
+            border-bottom: 1px solid #222;
+
+            z-index: 10;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             font-size: 22px;
             font-weight: bold;
         }
 
-        .logo img {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-        }
-
         .logo span {
-            color: #ff6200;
+            color: #ff5b00;
         }
 
         nav a {
-            color: white;
+            color: #aaa;
+
             text-decoration: none;
+
             margin-left: 30px;
-            transition: 0.3s;
+
+            font-size: 14px;
+
+            transition: .3s;
         }
 
         nav a:hover {
-            color: #ff6200;
+            color: #ff5b00;
         }
 
         /* HERO */
 
         .hero {
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             text-align: center;
+
             padding: 100px 20px;
+
             position: relative;
+
             overflow: hidden;
 
             background:
-                radial-gradient(circle at center,
-                rgba(255, 98, 0, 0.25),
-                transparent 45%),
+
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(255,91,0,.25),
+                    transparent 40%
+                ),
+
                 #080808;
         }
 
         .hero::before {
+
             content: "";
+
             position: absolute;
+
             width: 500px;
             height: 500px;
-            border: 1px solid rgba(255, 98, 0, 0.3);
+
+            border: 1px solid
+                rgba(255,91,0,.25);
+
             border-radius: 50%;
-            animation: girar 12s linear infinite;
+
+            animation: girar 15s linear infinite;
+        }
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 700px;
+            height: 700px;
+
+            border: 1px solid
+                rgba(255,255,255,.05);
+
+            border-radius: 50%;
+
+            animation: girar 25s linear infinite reverse;
         }
 
         .hero-content {
@@ -98,248 +148,394 @@
         }
 
         .hero h1 {
-            font-size: clamp(50px, 8vw, 100px);
-            line-height: 0.95;
-            margin-bottom: 25px;
+
+            font-size:
+                clamp(55px, 8vw, 100px);
+
+            line-height: .9;
+
+            letter-spacing: -5px;
         }
 
         .hero h1 span {
-            color: #ff6200;
+            color: #ff5b00;
         }
 
         .hero p {
-            color: #aaa;
+
             max-width: 600px;
-            margin: auto;
-            font-size: 18px;
-            line-height: 1.6;
+
+            margin: 30px auto;
+
+            color: #888;
+
+            line-height: 1.7;
         }
 
         .botao {
+
             display: inline-block;
-            margin-top: 35px;
-            padding: 16px 28px;
-            background: #ff6200;
+
+            padding: 16px 25px;
+
+            background: #ff5b00;
+
             color: white;
+
             text-decoration: none;
+
+            border-radius: 5px;
+
             font-weight: bold;
-            border-radius: 8px;
-            transition: 0.3s;
+
+            transition: .3s;
         }
 
         .botao:hover {
+
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(255, 98, 0, 0.4);
+
+            box-shadow:
+                0 15px 40px
+                rgba(255,91,0,.3);
         }
 
         @keyframes girar {
+
             from {
-                transform: rotate(0deg) scale(1);
+                transform:
+                    rotate(0deg)
+                    scale(1);
             }
 
             50% {
-                transform: rotate(180deg) scale(1.2);
+                transform:
+                    rotate(180deg)
+                    scale(1.15);
             }
 
             to {
-                transform: rotate(360deg) scale(1);
+                transform:
+                    rotate(360deg)
+                    scale(1);
             }
+        }
+
+        /* TITULOS */
+
+        .titulo {
+
+            text-align: center;
+
+            margin-bottom: 60px;
+        }
+
+        .titulo h2 {
+
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .titulo span {
+            color: #ff5b00;
+        }
+
+        .titulo p {
+            color: #777;
         }
 
         /* PRODUTOS */
 
         .produtos {
+
             padding: 120px 7%;
         }
 
-        .titulo {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .titulo h2 {
-            font-size: 50px;
-        }
-
-        .titulo span {
-            color: #ff6200;
-        }
-
-        .titulo p {
-            color: #888;
-            margin-top: 15px;
-        }
-
         .grid {
+
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
             gap: 20px;
         }
 
         .card {
+
             background: #111;
+
             border: 1px solid #222;
-            border-radius: 15px;
+
+            border-radius: 12px;
+
             overflow: hidden;
-            transition: 0.4s;
+
+            transition: .4s;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            border-color: #ff6200;
-            box-shadow: 0 20px 50px rgba(255, 98, 0, 0.12);
+
+            transform:
+                translateY(-10px)
+                scale(1.02);
+
+            border-color: #ff5b00;
+
+            box-shadow:
+                0 20px 50px
+                rgba(255,91,0,.12);
         }
 
-        .produto-img {
-            height: 220px;
+        .produto {
+
+            height: 230px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
-            background:
-                radial-gradient(circle,
-                rgba(255, 98, 0, 0.2),
-                transparent 65%);
-
             font-size: 70px;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(255,91,0,.2),
+                    transparent 65%
+                );
         }
 
-        .card-info {
+        .info {
+
             padding: 22px;
         }
 
-        .card-info h3 {
+        .info h3 {
             margin-bottom: 8px;
         }
 
-        .card-info p {
+        .info p {
+
             color: #777;
-            font-size: 14px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
         }
 
         /* SOBRE */
 
         .sobre {
-            padding: 120px 10%;
+
+            padding: 140px 10%;
+
             text-align: center;
+
             background: #0d0d0d;
         }
 
         .sobre h2 {
-            font-size: 55px;
+
+            font-size: 60px;
+
             margin-bottom: 25px;
         }
 
         .sobre span {
-            color: #ff6200;
+            color: #ff5b00;
         }
 
         .sobre p {
+
             max-width: 700px;
+
             margin: auto;
-            color: #888;
+
+            color: #777;
+
             line-height: 1.8;
         }
 
         /* CONTATO */
 
         .contato {
-            padding: 120px 20px;
+
+            padding: 140px 20px;
+
             text-align: center;
         }
 
         .contato h2 {
-            font-size: 50px;
+
+            font-size: 55px;
         }
 
         .contato p {
-            color: #888;
-            margin: 20px 0;
+
+            color: #777;
+
+            margin: 20px 0 30px;
         }
 
         /* FOOTER */
 
         footer {
-            border-top: 1px solid #222;
+
             padding: 30px;
+
             text-align: center;
-            color: #666;
+
+            border-top: 1px solid #222;
+
+            color: #555;
+        }
+
+        /* ANIMAÇÃO DE ENTRADA */
+
+        .animar {
+
+            animation:
+                aparecer 1s ease forwards;
+        }
+
+        @keyframes aparecer {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(30px);
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
         }
 
         /* CELULAR */
 
-        @media (max-width: 900px) {
+        @media(max-width:900px) {
 
             nav {
                 display: none;
             }
 
             .grid {
-                grid-template-columns: repeat(2, 1fr);
+
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
 
         }
 
-        @media (max-width: 550px) {
+        @media(max-width:550px) {
 
             .grid {
+
                 grid-template-columns: 1fr;
             }
 
-            .titulo h2,
-            .sobre h2,
+            .hero h1 {
+
+                font-size: 55px;
+            }
+
+            .titulo h2 {
+
+                font-size: 40px;
+            }
+
+            .sobre h2 {
+
+                font-size: 42px;
+            }
+
             .contato h2 {
-                font-size: 38px;
+
+                font-size: 42px;
             }
 
         }
+
     </style>
+
 </head>
 
+
 <body>
+
 
 <header>
 
     <div class="logo">
-
-        <!-- Coloque sua imagem com o nome logo.jpg -->
-        <img src="logo.jpg">
 
         CONEXÃO<span>3D</span>
 
     </div>
 
     <nav>
-        <a href="#inicio">Início</a>
-        <a href="#produtos">Produtos</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#contato">Contato</a>
+
+        <a href="#inicio">
+            Início
+        </a>
+
+        <a href="#produtos">
+            Produtos
+        </a>
+
+        <a href="#sobre">
+            Sobre
+        </a>
+
+        <a href="#contato">
+            Contato
+        </a>
+
     </nav>
 
 </header>
 
 
-<!-- INÍCIO -->
 
-<section class="hero" id="inicio">
+<section
+    class="hero animar"
+    id="inicio">
 
     <div class="hero-content">
 
         <h1>
-            Suas ideias.<br>
-            Nossa <span>impressão.</span>
+
+            Ideias que<br>
+
+            <span>ganham forma.</span>
+
         </h1>
 
         <p>
-            Transformamos ideias em objetos reais através
-            da impressão 3D personalizada.
+
+            Impressão 3D personalizada,
+            prototipagem e criação de peças
+            únicas para transformar suas ideias
+            em realidade.
+
         </p>
 
         <a
             class="botao"
             href="https://www.instagram.com/conexao3d__/"
             target="_blank">
-            Conheça nosso Instagram →
+
+            Conheça a Conexão3D →
+
         </a>
 
     </div>
@@ -347,19 +543,29 @@
 </section>
 
 
-<!-- PRODUTOS -->
 
-<section class="produtos" id="produtos">
+<section
+    class="produtos"
+    id="produtos">
+
 
     <div class="titulo">
 
-        <h2>Nossos <span>Produtos</span></h2>
+        <h2>
+
+            Nossos
+            <span>produtos</span>
+
+        </h2>
 
         <p>
-            Algumas das criações da Conexão3D
+
+            Conheça algumas das nossas criações.
+
         </p>
 
     </div>
+
 
 
     <div class="grid">
@@ -367,16 +573,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ∞
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Infinity Serpent</h3>
+                <h3>
+                    Infinity Serpent
+                </h3>
 
                 <p>
-                    Peça decorativa articulada.
+                    Peça articulada para decoração.
                 </p>
 
             </div>
@@ -387,16 +595,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ⚙
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Organizador Multiuso</h3>
+                <h3>
+                    Organizador Multiuso
+                </h3>
 
                 <p>
-                    Organização para seu dia a dia.
+                    Organização e praticidade.
                 </p>
 
             </div>
@@ -407,16 +617,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ★
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Miniaturas</h3>
+                <h3>
+                    Miniaturas
+                </h3>
 
                 <p>
-                    Miniaturas personalizadas.
+                    Modelos personalizados.
                 </p>
 
             </div>
@@ -427,16 +639,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 +
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Produto em desenvolvimento</h3>
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
 
                 <p>
-                    Em breve uma nova criação.
+                    Uma nova criação está chegando.
                 </p>
 
             </div>
@@ -447,16 +661,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ◆
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Produto em desenvolvimento</h3>
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
 
                 <p>
-                    Nova peça chegando.
+                    Em breve.
                 </p>
 
             </div>
@@ -467,13 +683,15 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ◈
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Suportes</h3>
+                <h3>
+                    Suportes
+                </h3>
 
                 <p>
                     Peças funcionais personalizadas.
@@ -487,36 +705,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
-                ♟
-            </div>
-
-            <div class="card-info">
-
-                <h3>Produto em desenvolvimento</h3>
-
-                <p>
-                    Em breve.
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="card">
-
-            <div class="produto-img">
+            <div class="produto">
                 ✦
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Peças personalizadas</h3>
+                <h3>
+                    Decoração 3D
+                </h3>
 
                 <p>
-                    Criadas especialmente para você.
+                    Objetos para transformar ambientes.
                 </p>
 
             </div>
@@ -527,13 +727,15 @@
 
         <div class="card">
 
-            <div class="produto-img">
-                ●
+            <div class="produto">
+                +
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Produto em desenvolvimento</h3>
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
 
                 <p>
                     Novidade em produção.
@@ -547,33 +749,15 @@
 
         <div class="card">
 
-            <div class="produto-img">
-                ◆
+            <div class="produto">
+                ●
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Decoração 3D</h3>
-
-                <p>
-                    Detalhes únicos para seu ambiente.
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="card">
-
-            <div class="produto-img">
-                ◉
-            </div>
-
-            <div class="card-info">
-
-                <h3>Produto em desenvolvimento</h3>
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
 
                 <p>
                     Em breve.
@@ -587,16 +771,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ▲
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Protótipos</h3>
+                <h3>
+                    Protótipos
+                </h3>
 
                 <p>
-                    Da ideia para um modelo real.
+                    Transforme sua ideia em um modelo.
                 </p>
 
             </div>
@@ -607,13 +793,15 @@
 
         <div class="card">
 
-            <div class="produto-img">
-                ✚
+            <div class="produto">
+                ◉
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Produto em desenvolvimento</h3>
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
 
                 <p>
                     Novo projeto.
@@ -627,16 +815,18 @@
 
         <div class="card">
 
-            <div class="produto-img">
+            <div class="produto">
                 ◆
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Acessórios</h3>
+                <h3>
+                    Acessórios
+                </h3>
 
                 <p>
-                    Acessórios feitos sob medida.
+                    Peças feitas sob medida.
                 </p>
 
             </div>
@@ -647,13 +837,15 @@
 
         <div class="card">
 
-            <div class="produto-img">
-                ✧
+            <div class="produto">
+                +
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Produto em desenvolvimento</h3>
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
 
                 <p>
                     Aguarde novidades.
@@ -667,72 +859,133 @@
 
         <div class="card">
 
-            <div class="produto-img">
-                ∞
+            <div class="produto">
+                ✧
             </div>
 
-            <div class="card-info">
+            <div class="info">
 
-                <h3>Seu projeto</h3>
+                <h3>
+                    Personalizados
+                </h3>
 
                 <p>
-                    Podemos transformar sua ideia em 3D.
+                    Criados especialmente para você.
                 </p>
 
             </div>
 
         </div>
 
+
+
+        <div class="card">
+
+            <div class="produto">
+                +
+            </div>
+
+            <div class="info">
+
+                <h3>
+                    Produto em desenvolvimento
+                </h3>
+
+                <p>
+                    Em breve.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <div class="produto">
+                ∞
+            </div>
+
+            <div class="info">
+
+                <h3>
+                    Seu projeto
+                </h3>
+
+                <p>
+                    Sua ideia transformada em 3D.
+                </p>
+
+            </div>
+
+        </div>
+
+
     </div>
 
 </section>
 
 
-<!-- SOBRE -->
 
-<section class="sobre" id="sobre">
+<section
+    class="sobre"
+    id="sobre">
 
     <h2>
-        Mais que impressão.<br>
+
+        Mais que impressão.
+        <br>
+
         <span>Conexão.</span>
+
     </h2>
 
     <p>
-        A Conexão3D transforma criatividade em objetos.
-        Trabalhamos com impressão 3D para criar peças
-        personalizadas, funcionais e únicas.
+
+        A Conexão3D transforma ideias,
+        criatividade e projetos em objetos
+        reais através da impressão 3D.
+
     </p>
 
 </section>
 
 
-<!-- CONTATO -->
 
-<section class="contato" id="contato">
+<section
+    class="contato"
+    id="contato">
 
     <h2>
         Tem uma ideia?
     </h2>
 
     <p>
-        Vamos transformar ela em algo real.
+        Vamos transformar sua ideia em algo real.
     </p>
 
     <a
         class="botao"
         href="https://www.instagram.com/conexao3d__/"
         target="_blank">
+
         Falar com a Conexão3D →
+
     </a>
 
 </section>
 
 
+
 <footer>
 
-    © 2026 Conexão3D — Impressão 3D
+    © 2026 Conexão3D —
+    Impressão 3D
 
 </footer>
 
+
 </body>
+
 </html>
