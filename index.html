@@ -1,1011 +1,4128 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b12">
-<title>A10 Variedades | Impressão 3D e Criatividade</title>
-
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
-
-<style>
-:root {
-  --bg: #080b12;
-  --panel: #101725;
-  --panel2: #151f30;
-  --blue: #00bfff;
-  --white: #f5f8ff;
-  --muted: #8995a8;
-  --border: rgba(255,255,255,.09);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--white);
-  font-family: Inter, Arial, sans-serif;
-  overflow-x: hidden;
-}
-
-button, input { font: inherit; }
-button { cursor: pointer; }
-
-header {
-  height: 76px;
-  padding: 0 7%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border);
-  background: rgba(8,11,18,.94);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(16px);
-}
-
-.logo {
-  font-size: 25px;
-  font-weight: 900;
-  letter-spacing: -1px;
-}
-
-.logo span { color: var(--blue); }
-
-nav {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-}
-
-nav a {
-  color: #b8c2d3;
-  text-decoration: none;
-  font-size: 14px;
-  transition: .2s;
-}
-
-nav a:hover { color: var(--blue); }
-
-.cart {
-  border: 1px solid rgba(0,191,255,.4);
-  background: rgba(0,191,255,.1);
-  color: white;
-  padding: 11px 17px;
-  border-radius: 10px;
-}
-
-.hero {
-  min-height: 590px;
-  display: flex;
-  align-items: center;
-  padding: 80px 9%;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 80% 50%, rgba(0,145,255,.18), transparent 42%),
-    linear-gradient(120deg,#080b12,#0b1422);
-}
-
-.hero-content { max-width: 700px; z-index: 2; }
-
-.tag {
-  color: var(--blue);
-  font-size: 12px;
-  letter-spacing: 3px;
-  font-weight: bold;
-  margin-bottom: 25px;
-}
-
-.hero h1 {
-  font-size: clamp(42px,7vw,76px);
-  line-height: 1.06;
-  letter-spacing: -3px;
-  margin-bottom: 24px;
-}
-
-.hero h1 span {
-  color: var(--blue);
-  text-shadow: 0 0 35px rgba(0,191,255,.3);
-}
-
-.hero p {
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.8;
-  max-width: 520px;
-}
-
-.primary {
-  display: inline-block;
-  background: var(--blue);
-  color: #00121c;
-  padding: 16px 26px;
-  font-weight: 800;
-  border-radius: 9px;
-  border: none;
-  margin-top: 30px;
-  text-decoration: none;
-  transition: .2s;
-}
-
-.primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(0,191,255,.35);
-}
-
-.hero-decoration {
-  position: absolute;
-  right: 8%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 300px;
-  height: 300px;
-  border: 1px solid rgba(0,191,255,.2);
-  border-radius: 50%;
-  box-shadow: 0 0 80px rgba(0,191,255,.1);
-  display: grid;
-  place-items: center;
-  font-size: 130px;
-}
-
-section { padding: 90px 8%; }
-
-.section-heading { margin-bottom: 38px; }
-
-.section-heading small {
-  color: var(--blue);
-  letter-spacing: 3px;
-  font-weight: bold;
-}
-
-.section-heading h2 {
-  font-size: clamp(30px,4vw,43px);
-  margin-top: 13px;
-}
-
-.section-heading p {
-  color: var(--muted);
-  margin-top: 12px;
-  line-height: 1.7;
-}
-
-.products {
-  background: #0b101a;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 22px;
-}
-
-.product-card {
-  background: linear-gradient(145deg,#141e2e,#0e1521);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: .3s;
-}
-
-.product-card:hover {
-  transform: translateY(-7px);
-  border-color: rgba(0,191,255,.55);
-  box-shadow: 0 15px 40px rgba(0,0,0,.3);
-}
-
-.product-art {
-  height: 210px;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle,rgba(0,191,255,.12),transparent 65%),
-    #111b2a;
-  font-size: 90px;
-}
-
-.product-info { padding: 22px; }
-
-.product-info small {
-  color: var(--blue);
-  letter-spacing: 1px;
-  font-size: 10px;
-  font-weight: bold;
-}
-
-.product-info h3 {
-  font-size: 19px;
-  margin: 10px 0;
-}
-
-.description {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-  min-height: 42px;
-}
-
-.price {
-  font-size: 25px;
-  font-weight: 900;
-  margin: 18px 0;
-}
-
-.price span {
-  font-size: 12px;
-  color: var(--muted);
-  font-weight: normal;
-}
-
-.actions { display: flex; gap: 10px; }
-
-.actions button {
-  flex: 1;
-  padding: 12px 7px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.buy {
-  background: var(--blue);
-  color: #00121c;
-  border: none;
-}
-
-.view {
-  background: transparent;
-  color: white;
-  border: 1px solid #40536b;
-}
-
-.view:hover { border-color: var(--blue); color: var(--blue); }
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 20px;
-}
-
-.feature {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  padding: 30px;
-  border-radius: 14px;
-}
-
-.feature .icon { font-size: 32px; }
-
-.feature h3 { margin: 18px 0 10px; }
-
-.feature p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.about {
-  background: linear-gradient(110deg,#0c1625,#101d2e);
-  text-align: center;
-}
-
-.about p {
-  color: var(--muted);
-  max-width: 680px;
-  margin: 20px auto;
-  line-height: 1.9;
-}
-
-footer {
-  padding: 45px 8%;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-size: 13px;
-}
-
-/* VISUALIZADOR 3D */
-
-.viewer {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: #080d17;
-  display: none;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.viewer.active { display: flex; }
-
-.viewer-header {
-  height: 70px;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5%;
-  border-bottom: 1px solid var(--border);
-}
-
-.viewer-header h2 { font-size: 18px; }
-
-.close {
-  background: #1c293a;
-  color: white;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 10px 17px;
-}
-
-.viewer-body {
-  flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0,1fr) 300px;
-  min-height: 500px;
-}
-
-.canvas-area {
-  position: relative;
-  min-height: 500px;
-  background:
-    radial-gradient(ellipse at center,rgba(0,191,255,.09),transparent 65%),
-    #0a111e;
-}
-
-#modelCanvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  min-height: 500px;
-}
-
-.rotate-tip {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #8799b1;
-  font-size: 12px;
-  background: rgba(0,0,0,.4);
-  padding: 10px 16px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
-
-.controls {
-  background: #111a28;
-  border-left: 1px solid var(--border);
-  padding: 28px 22px;
-}
-
-.controls h3 { margin-bottom: 12px; }
-
-.controls p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-
-.palette {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 13px;
-  margin: 20px 0 30px;
-}
-
-.color {
-  height: 39px;
-  width: 39px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.2);
-  cursor: pointer;
-  transition: .2s;
-}
-
-.color.selected {
-  outline: 2px solid var(--blue);
-  outline-offset: 4px;
-}
-
-.reset {
-  background: transparent;
-  color: white;
-  border: 1px solid #43536b;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-}
-
-.viewer-buy {
-  background: var(--blue);
-  color: #00121c;
-  border: none;
-  padding: 15px;
-  border-radius: 8px;
-  font-weight: bold;
-  width: 100%;
-  margin-top: 15px;
-}
-
-.cart-panel {
-  position: fixed;
-  right: 15px;
-  top: 85px;
-  z-index: 50;
-  width: min(360px,calc(100% - 30px));
-  padding: 22px;
-  background: #152033;
-  border: 1px solid rgba(0,191,255,.4);
-  border-radius: 14px;
-  display: none;
-  box-shadow: 0 15px 50px #0009;
-}
-
-.cart-panel.active { display: block; }
-
-.cart-panel h3 { margin-bottom: 15px; }
-.cart-item { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-.cart-total { margin-top: 18px; font-weight: bold; }
-
-.empty { color: var(--muted); font-size: 13px; }
-
-@media(max-width:850px) {
-  .hero-decoration { opacity: .18; right: -100px; }
-  .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .viewer-body { grid-template-columns: 1fr; }
-  .controls { border-left: none; border-top: 1px solid var(--border); }
-  .canvas-area, #modelCanvas { min-height: 390px; }
-  .features { grid-template-columns: 1fr; }
-}
-
-@media(max-width:560px) {
-  header { padding: 0 5%; height: 65px; }
-  nav { gap: 10px; }
-  nav a { display: none; }
-  .logo { font-size: 22px; }
-  .cart { padding: 9px 11px; font-size: 12px; }
-  .hero { min-height: 510px; padding: 65px 7%; }
-  .hero h1 { letter-spacing: -2px; }
-  section { padding: 65px 6%; }
-  .product-grid { grid-template-columns: 1fr; gap: 17px; }
-  .product-art { height: 190px; }
-  .viewer-header { padding: 0 4%; }
-  .canvas-area, #modelCanvas { min-height: 340px; }
-  .controls { padding: 24px; }
-  footer { flex-direction: column; }
-}
-</style>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="c9976acd-398b-4934-b902-5a434d9922a9.jpg"
+    >
+
+    <meta
+        name="description"
+        content="Conexão 3D - Impressões 3D criativas, Funko Pops personalizados, chaveiros, brinquedos, copos, dioramas e peças personalizadas."
+    >
+
+    <meta
+        name="theme-color"
+        content="#0877ff"
+    >
+
+    <title>
+        CONEXÃO 3D | Impressões Criativas
+    </title>
+
+
+    <style>
+
+        /* ==========================================
+           CONFIGURAÇÕES GERAIS
+        ========================================== */
+
+        :root {
+
+            --azul: #0877ff;
+
+            --azul-escuro: #0056c9;
+
+            --azul-claro: #eaf4ff;
+
+            --preto: #111111;
+
+            --branco: #ffffff;
+
+            --rosa: #ff4fa3;
+
+            --rosa-claro: #fff0f7;
+
+            --verde: #20c76a;
+
+            --verde-hover: #16a957;
+
+            --cinza: #666666;
+
+            --cinza-claro: #f6f8fb;
+
+            --sombra:
+                0 15px 45px rgba(0, 0, 0, 0.08);
+
+            --sombra-hover:
+                0 25px 60px rgba(0, 0, 0, 0.12);
+
+            --raio: 24px;
+
+        }
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: var(--branco);
+
+            color: var(--preto);
+
+            line-height: 1.6;
+
+            overflow-x: hidden;
+
+        }
+
+
+        img {
+
+            max-width: 100%;
+
+            display: block;
+
+        }
+
+
+        a {
+
+            text-decoration: none;
+
+        }
+
+
+        button {
+
+            font-family: inherit;
+
+        }
+
+
+        /* ==========================================
+           BARRA DE NAVEGAÇÃO
+        ========================================== */
+
+        header {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            z-index: 1000;
+
+            background: rgba(
+                255,
+                255,
+                255,
+                0.97
+            );
+
+            border-bottom:
+                1px solid
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.05
+                );
+
+            transition:
+                background 0.6s ease,
+                box-shadow 0.6s ease;
+
+        }
+
+
+        header:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    1
+                );
+
+            box-shadow:
+                0 8px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.04
+                );
+
+        }
+
+
+        .navbar {
+
+            width:
+                min(
+                    1150px,
+                    92%
+                );
+
+            margin: auto;
+
+            min-height: 72px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+        }
+
+
+        .logo {
+
+            font-size: 1.45rem;
+
+            font-weight: 900;
+
+            letter-spacing: -1px;
+
+            color: var(--preto);
+
+            transition:
+                transform 0.5s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .logo:hover {
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        .logo span {
+
+            color: var(--azul);
+
+        }
+
+
+        nav {
+
+            display: flex;
+
+            gap: 25px;
+
+        }
+
+
+        nav a {
+
+            color: var(--preto);
+
+            font-size: 0.95rem;
+
+            font-weight: 700;
+
+            position: relative;
+
+            padding:
+                8px
+                0;
+
+            transition:
+                color 0.45s ease,
+                transform 0.45s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        nav a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: 0;
+
+            width: 0;
+
+            height: 2px;
+
+            background:
+                var(--azul);
+
+            border-radius: 10px;
+
+            transform:
+                translateX(-50%);
+
+            transition:
+                width 0.45s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        nav a:hover {
+
+            color: var(--azul);
+
+            transform:
+                translateY(-2px);
+
+        }
+
+
+        nav a:hover::after {
+
+            width: 100%;
+
+        }
+
+
+        /* ==========================================
+           HERO
+        ========================================== */
+
+        .hero {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            padding:
+                120px
+                20px
+                80px;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(
+                        8,
+                        119,
+                        255,
+                        0.10
+                    ),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(
+                        255,
+                        79,
+                        163,
+                        0.08
+                    ),
+                    transparent 30%
+                ),
+
+                #ffffff;
+
+        }
+
+
+        /*
+           ANTIGO BLUR DO TOPO REMOVIDO.
+
+           Antes havia:
+
+           filter: blur(20px);
+
+           Agora usamos apenas uma luz
+           suave sem blur.
+        */
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+
+            height: 450px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(
+                    8,
+                    119,
+                    255,
+                    0.035
+                );
+
+            top: -180px;
+
+            right: -150px;
+
+            pointer-events: none;
+
+            animation:
+                luzSuave
+                8s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        .hero-content {
+
+            width:
+                min(
+                    1050px,
+                    94%
+                );
+
+            text-align: center;
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .tag {
+
+            display: inline-block;
+
+            padding:
+                8px
+                16px;
+
+            margin-bottom: 20px;
+
+            border-radius: 50px;
+
+            background:
+                var(--rosa-claro);
+
+            color:
+                var(--rosa);
+
+            font-weight: 800;
+
+            font-size: 0.85rem;
+
+            animation:
+                entradaSuave
+                1s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                )
+                both;
+
+            transition:
+                transform 0.5s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .tag:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.02);
+
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(
+                    2.5rem,
+                    6vw,
+                    5.4rem
+                );
+
+            line-height: 1;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 30px;
+
+            animation:
+                aparecer
+                1.1s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                )
+                both;
+
+        }
+
+
+        .hero h1 .preto {
+
+            color:
+                var(--preto);
+
+        }
+
+
+        .hero h1 .azul {
+
+            color:
+                var(--azul);
+
+        }
+
+
+        .hero-description {
+
+            max-width: 850px;
+
+            margin: auto;
+
+            font-size:
+                clamp(
+                    1rem,
+                    2vw,
+                    1.18rem
+                );
+
+            color: #444;
+
+            text-align: left;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.90
+                );
+
+            padding: 30px;
+
+            border-radius:
+                var(--raio);
+
+            box-shadow:
+                var(--sombra);
+
+            animation:
+                subir
+                1.1s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                )
+                0.15s
+                both;
+
+            transition:
+                transform 0.6s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+                box-shadow 0.6s ease;
+
+        }
+
+
+        .hero-description:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 22px 55px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.10
+                );
+
+        }
+
+
+        .hero-description strong {
+
+            color:
+                var(--azul);
+
+        }
+
+
+        .hero-buttons {
+
+            margin-top: 30px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 14px;
+
+            flex-wrap: wrap;
+
+            animation:
+                subir
+                1.1s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                )
+                0.30s
+                both;
+
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                14px
+                25px;
+
+            border-radius: 50px;
+
+            font-weight: 800;
+
+            transition:
+
+                transform 0.55s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                box-shadow 0.55s ease,
+
+                background 0.45s ease;
+
+        }
+
+
+        .btn:hover {
+
+            transform:
+                translateY(-5px)
+                scale(1.02);
+
+        }
+
+
+        .btn-primary {
+
+            background:
+                var(--azul);
+
+            color: white;
+
+            box-shadow:
+                0 10px 25px
+                rgba(
+                    8,
+                    119,
+                    255,
+                    0.25
+                );
+
+        }
+
+
+        .btn-primary:hover {
+
+            box-shadow:
+                0 18px 35px
+                rgba(
+                    8,
+                    119,
+                    255,
+                    0.30
+                );
+
+        }
+
+
+        .btn-whatsapp {
+
+            background:
+                var(--verde);
+
+            color: white;
+
+            box-shadow:
+                0 10px 25px
+                rgba(
+                    32,
+                    199,
+                    106,
+                    0.25
+                );
+
+        }
+
+
+        .btn-whatsapp:hover {
+
+            box-shadow:
+                0 18px 35px
+                rgba(
+                    32,
+                    199,
+                    106,
+                    0.30
+                );
+
+        }
+
+
+        .scroll-indicator {
+
+            position: absolute;
+
+            bottom: 25px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            color: #888;
+
+            font-size: 0.8rem;
+
+            animation:
+                flutuar
+                2.5s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        /* ==========================================
+           SEÇÕES
+        ========================================== */
+
+        section {
+
+            padding:
+                100px
+                20px;
+
+        }
+
+
+        .container {
+
+            width:
+                min(
+                    1150px,
+                    92%
+                );
+
+            margin: auto;
+
+        }
+
+
+        .section-title {
+
+            text-align: center;
+
+            margin-bottom: 50px;
+
+        }
+
+
+        .section-title span {
+
+            color:
+                var(--azul);
+
+        }
+
+
+        .section-title h2 {
+
+            font-size:
+                clamp(
+                    2rem,
+                    4vw,
+                    3rem
+                );
+
+            letter-spacing:
+                -1.5px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .section-title p {
+
+            color:
+                var(--cinza);
+
+        }
+
+
+        /* ==========================================
+           PRODUTOS
+        ========================================== */
+
+        .products {
+
+            background:
+                var(--cinza-claro);
+
+        }
+
+
+        /*
+           GRID DOS 16 CARDS
+
+           3 colunas:
+
+           1  2  3
+           4  5  6
+           7  8  9
+           10 11 12
+           13 14 15
+              16
+
+        */
+
+        .product-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 28px;
+
+            align-items: stretch;
+
+        }
+
+
+        .product-card {
+
+            background:
+                white;
+
+            border-radius:
+                var(--raio);
+
+            overflow: hidden;
+
+            box-shadow:
+                var(--sombra);
+
+            opacity: 0;
+
+            transform:
+                translateY(22px)
+                scale(0.98);
+
+            transition:
+
+                opacity
+                0.65s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                transform
+                0.55s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                box-shadow
+                0.6s
+                ease;
+
+            will-change:
+                transform,
+                opacity;
+
+        }
+
+
+        /*
+           QUANDO O CARD ENTRA NA TELA
+        */
+
+        .product-card.visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+        }
+
+
+        /*
+           CARD 16 CENTRALIZADO
+        */
+
+        .product-card:nth-child(16) {
+
+            grid-column: 2;
+
+        }
+
+
+        .product-card:hover {
+
+            transform:
+                translateY(-10px)
+                scale(1.015);
+
+            box-shadow:
+                var(--sombra-hover);
+
+        }
+
+
+        .product-image {
+
+            height: 280px;
+
+            width: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform
+                0.9s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .product-card:hover
+        .product-image {
+
+            transform:
+                scale(1.045);
+
+        }
+
+
+        .product-content {
+
+            padding: 25px;
+
+        }
+
+
+        .product-content h3 {
+
+            font-size:
+                1.35rem;
+
+            margin-bottom: 8px;
+
+            transition:
+                color 0.45s ease,
+                transform 0.45s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .product-card:hover
+        .product-content h3 {
+
+            color:
+                var(--azul);
+
+            transform:
+                translateX(3px);
+
+        }
+
+
+        .product-content p {
+
+            color:
+                var(--cinza);
+
+            font-size:
+                0.95rem;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .price {
+
+            font-size:
+                1.5rem;
+
+            font-weight: 900;
+
+            color:
+                var(--azul);
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .acquire {
+
+            width: 100%;
+
+            border: 0;
+
+            cursor: pointer;
+
+            padding:
+                14px
+                20px;
+
+            border-radius: 13px;
+
+            background:
+                var(--verde);
+
+            color: white;
+
+            font-size: 1rem;
+
+            font-weight: 900;
+
+            transition:
+
+                transform
+                0.5s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                background
+                0.4s ease,
+
+                box-shadow
+                0.5s ease;
+
+            box-shadow:
+                0 8px 20px
+                rgba(
+                    32,
+                    199,
+                    106,
+                    0.22
+                );
+
+        }
+
+
+        .acquire:hover {
+
+            background:
+                var(--verde-hover);
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 13px 28px
+                rgba(
+                    32,
+                    199,
+                    106,
+                    0.28
+                );
+
+        }
+
+
+        .acquire:active {
+
+            transform:
+                translateY(0)
+                scale(0.98);
+
+        }
+
+
+        /* ==========================================
+           SERVIÇOS
+        ========================================== */
+
+        .services {
+
+            background:
+                white;
+
+        }
+
+
+        .service-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 20px;
+
+        }
+
+
+        .service {
+
+            padding:
+                28px
+                20px;
+
+            text-align: center;
+
+            border-radius:
+                var(--raio);
+
+            background:
+                var(--azul-claro);
+
+            opacity: 0;
+
+            transform:
+                translateY(30px);
+
+            transition:
+
+                opacity
+                0.8s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                transform
+                0.6s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                background
+                0.5s ease,
+
+                box-shadow
+                0.5s ease;
+
+        }
+
+
+        .service.visible {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .service:hover {
+
+            transform:
+                translateY(-7px);
+
+            background:
+                var(--rosa-claro);
+
+            box-shadow:
+                0 18px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.07
+                );
+
+        }
+
+
+        .service-icon {
+
+            font-size:
+                2.5rem;
+
+            margin-bottom:
+                12px;
+
+            display: inline-block;
+
+            transition:
+                transform
+                0.6s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .service:hover
+        .service-icon {
+
+            transform:
+                translateY(-5px)
+                scale(1.08)
+                rotate(2deg);
+
+        }
+
+
+        .service h3 {
+
+            margin-bottom:
+                7px;
+
+        }
+
+
+        .service p {
+
+            color:
+                var(--cinza);
+
+            font-size:
+                0.9rem;
+
+        }
+
+
+        /* ==========================================
+           PERSONALIZAÇÃO
+        ========================================== */
+
+        .custom {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0877ff,
+                    #075dc5
+                );
+
+            color:
+                white;
+
+            text-align:
+                center;
+
+        }
+
+
+        .custom-content {
+
+            max-width:
+                800px;
+
+            margin:
+                auto;
+
+        }
+
+
+        .custom h2 {
+
+            font-size:
+                clamp(
+                    2rem,
+                    5vw,
+                    3.6rem
+                );
+
+            line-height:
+                1.05;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .custom p {
+
+            font-size:
+                1.1rem;
+
+            opacity:
+                0.92;
+
+            margin-bottom:
+                30px;
+
+        }
+
+
+        .custom .btn {
+
+            background:
+                white;
+
+            color:
+                var(--azul);
+
+            transition:
+                transform
+                0.6s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                box-shadow
+                0.5s ease;
+
+        }
+
+
+        .custom .btn:hover {
+
+            box-shadow:
+                0 18px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.18
+                );
+
+        }
+
+
+        /* ==========================================
+           FAQ
+        ========================================== */
+
+        .faq {
+
+            background:
+                var(--cinza-claro);
+
+        }
+
+
+        .faq-container {
+
+            max-width:
+                850px;
+
+            margin:
+                auto;
+
+        }
+
+
+        .faq-item {
+
+            background:
+                white;
+
+            border-radius:
+                16px;
+
+            margin-bottom:
+                14px;
+
+            overflow:
+                hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.04
+                );
+
+            transition:
+                box-shadow
+                0.5s ease,
+                transform
+                0.5s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .faq-item:hover {
+
+            box-shadow:
+                0 12px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.07
+                );
+
+        }
+
+
+        .faq-question {
+
+            width:
+                100%;
+
+            padding:
+                20px;
+
+            background:
+                white;
+
+            border:
+                0;
+
+            cursor:
+                pointer;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            font-size:
+                1rem;
+
+            font-weight:
+                800;
+
+            text-align:
+                left;
+
+            color:
+                var(--preto);
+
+        }
+
+
+        .faq-question span {
+
+            color:
+                var(--azul);
+
+            font-size:
+                1.4rem;
+
+            transition:
+                transform
+                0.5s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+        }
+
+
+        .faq-answer {
+
+            max-height:
+                0;
+
+            overflow:
+                hidden;
+
+            transition:
+                max-height
+                0.6s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                );
+
+            padding:
+                0
+                20px;
+
+            color:
+                var(--cinza);
+
+        }
+
+
+        .faq-item.active
+        .faq-answer {
+
+            max-height:
+                250px;
+
+            padding:
+                0
+                20px
+                20px;
+
+        }
+
+
+        .faq-item.active
+        .faq-question
+        span {
+
+            transform:
+                rotate(45deg);
+
+        }
+
+
+        /* ==========================================
+           RODAPÉ
+        ========================================== */
+
+        footer {
+
+            background:
+                #0c0c0c;
+
+            color:
+                white;
+
+            padding:
+                60px
+                20px
+                25px;
+
+        }
+
+
+        .footer-content {
+
+            width:
+                min(
+                    1100px,
+                    92%
+                );
+
+            margin:
+                auto;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                2fr
+                1fr
+                1fr;
+
+            gap:
+                40px;
+
+        }
+
+
+        .footer-logo {
+
+            font-size:
+                1.8rem;
+
+            font-weight:
+                900;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        .footer-logo span {
+
+            color:
+                var(--azul);
+
+        }
+
+
+        footer p {
+
+            color:
+                #aaa;
+
+            font-size:
+                0.95rem;
+
+        }
+
+
+        footer h4 {
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        footer a {
+
+            display:
+                block;
+
+            color:
+                #aaa;
+
+            margin-bottom:
+                8px;
+
+            transition:
+                color
+                0.4s ease,
+                transform
+                0.4s ease;
+
+        }
+
+
+        footer a:hover {
+
+            color:
+                white;
+
+            transform:
+                translateX(3px);
+
+        }
+
+
+        .copyright {
+
+            width:
+                min(
+                    1100px,
+                    92%
+                );
+
+            margin:
+                40px
+                auto
+                0;
+
+            padding-top:
+                20px;
+
+            border-top:
+                1px solid
+                #292929;
+
+            text-align:
+                center;
+
+            color:
+                #777;
+
+            font-size:
+                0.85rem;
+
+        }
+
+
+        /* ==========================================
+           BOTÃO FLUTUANTE WHATSAPP
+        ========================================== */
+
+        .whatsapp-float {
+
+            position:
+                fixed;
+
+            right:
+                20px;
+
+            bottom:
+                20px;
+
+            width:
+                58px;
+
+            height:
+                58px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--verde);
+
+            color:
+                white;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                1.6rem;
+
+            z-index:
+                900;
+
+            box-shadow:
+                0 10px 30px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.20
+                );
+
+            transition:
+                transform
+                0.6s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ),
+
+                box-shadow
+                0.5s ease;
+
+            animation:
+                whatsappEntrada
+                1s
+                cubic-bezier(
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                )
+                1s
+                both;
+
+        }
+
+
+        .whatsapp-float:hover {
+
+            transform:
+                scale(1.10)
+                translateY(-4px);
+
+            box-shadow:
+                0 18px 40px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.25
+                );
+
+        }
+
+
+        /* ==========================================
+           ANIMAÇÕES
+        ========================================== */
+
+        @keyframes aparecer {
+
+            0% {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(30px)
+                    scale(0.96);
+
+            }
+
+            100% {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        @keyframes subir {
+
+            0% {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(30px);
+
+            }
+
+            100% {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        @keyframes entradaSuave {
+
+            0% {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(15px)
+                    scale(0.97);
+
+            }
+
+            100% {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+
+            }
+
+        }
+
+
+        @keyframes flutuar {
+
+            0%,
+            100% {
+
+                transform:
+                    translateX(-50%)
+                    translateY(0);
+
+            }
+
+            50% {
+
+                transform:
+                    translateX(-50%)
+                    translateY(-8px);
+
+            }
+
+        }
+
+
+        @keyframes luzSuave {
+
+            0% {
+
+                opacity:
+                    0.45;
+
+                transform:
+                    translate(
+                        0,
+                        0
+                    )
+                    scale(1);
+
+            }
+
+            50% {
+
+                opacity:
+                    0.70;
+
+                transform:
+                    translate(
+                        -20px,
+                        20px
+                    )
+                    scale(1.04);
+
+            }
+
+            100% {
+
+                opacity:
+                    0.45;
+
+                transform:
+                    translate(
+                        0,
+                        0
+                    )
+                    scale(1);
+
+            }
+
+        }
+
+
+        @keyframes whatsappEntrada {
+
+            0% {
+
+                opacity:
+                    0;
+
+                transform:
+                    scale(0.6)
+                    translateY(20px);
+
+            }
+
+            100% {
+
+                opacity:
+                    1;
+
+                transform:
+                    scale(1)
+                    translateY(0);
+
+            }
+
+        }
+
+
+        /* ==========================================
+           RESPONSIVIDADE
+        ========================================== */
+
+        @media (max-width: 900px) {
+
+            .product-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(
+                            0,
+                            1fr
+                        )
+                    );
+
+            }
+
+
+            /*
+               No tablet o card 16
+               deixa de ser centralizado
+               para manter o grid natural.
+            */
+
+            .product-card:nth-child(16) {
+
+                grid-column:
+                    auto;
+
+            }
+
+
+            .service-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(
+                            0,
+                            1fr
+                        )
+                    );
+
+            }
+
+
+            .footer-content {
+
+                grid-template-columns:
+                    1fr
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            nav {
+
+                display:
+                    none;
+
+            }
+
+
+            .hero h1 {
+
+                letter-spacing:
+                    -2px;
+
+            }
+
+
+            .hero-description {
+
+                padding:
+                    22px;
+
+                font-size:
+                    0.95rem;
+
+            }
+
+
+            section {
+
+                padding:
+                    75px
+                    15px;
+
+            }
+
+
+            .product-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .product-card:nth-child(16) {
+
+                grid-column:
+                    auto;
+
+            }
+
+
+            .service-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .product-image {
+
+                height:
+                    240px;
+
+            }
+
+
+            .footer-content {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .whatsapp-float {
+
+                width:
+                    54px;
+
+                height:
+                    54px;
+
+                right:
+                    15px;
+
+                bottom:
+                    15px;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           REDUÇÃO DE MOVIMENTO
+        ========================================== */
+
+        @media (
+            prefers-reduced-motion: reduce
+        ) {
+
+            html {
+
+                scroll-behavior:
+                    auto;
+
+            }
+
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
+
+<!-- ==========================================
+     MENU
+=========================================== -->
+
 <header>
-  <div class="logo">A10<span>.</span> VARIEDADES</div>
 
-  <nav>
-    <a href="#inicio">Início</a>
-    <a href="#produtos">Produtos</a>
-    <a href="#sobre">Sobre</a>
-  </nav>
+    <div class="navbar">
 
-  <button class="cart" onclick="toggleCart()">
-    🛒 Carrinho (<span id="cartCount">0</span>)
-  </button>
+        <a
+            href="#inicio"
+            class="logo"
+        >
+            CONEXÃO<span>3D</span>
+        </a>
+
+
+        <nav>
+
+            <a href="#produtos">
+                Produtos
+            </a>
+
+            <a href="#servicos">
+                Serviços
+            </a>
+
+            <a href="#personalizado">
+                Personalize
+            </a>
+
+            <a href="#faq">
+                Dúvidas
+            </a>
+
+        </nav>
+
+    </div>
+
 </header>
+
+
+
+<!-- ==========================================
+     INTRO
+=========================================== -->
 
 <main>
 
-<section class="hero" id="inicio">
-  <div class="hero-content">
-    <div class="tag">TECNOLOGIA • CRIATIVIDADE • PERSONALIZAÇÃO</div>
+<section
+    class="hero"
+    id="inicio"
+>
 
-    <h1>IDEIAS QUE<br>GANHAM <span>FORMA.</span></h1>
+    <div class="hero-content">
 
-    <p>
-      Bem-vindo à A10 Variedades. Criamos produtos criativos,
-      brinquedos, chaveiros, peças decorativas e muito mais.
-      Escolha seu produto, personalize e descubra novas possibilidades.
-    </p>
+        <div class="tag">
 
-    <a href="#produtos" class="primary">EXPLORAR PRODUTOS →</a>
-  </div>
+            ✨ IMPRESSÕES 3D CRIATIVAS
 
-  <div class="hero-decoration">✦</div>
-</section>
+        </div>
 
-<section class="products" id="produtos">
-  <div class="section-heading">
-    <small>CATÁLOGO A10</small>
-    <h2>Nossos produtos</h2>
-    <p>Escolha um produto e experimente a visualização 3D antes de comprar.</p>
-  </div>
 
-  <div class="product-grid" id="productGrid"></div>
-</section>
+        <h1>
 
-<section id="diferenciais">
-  <div class="section-heading">
-    <small>POR QUE A A10?</small>
-    <h2>Criatividade em cada detalhe.</h2>
-  </div>
+            <span class="preto">
 
-  <div class="features">
-    <div class="feature">
-      <div class="icon">🎨</div>
-      <h3>Personalização</h3>
-      <p>Escolha as cores dos seus produtos e encontre a combinação que mais combina com sua ideia.</p>
+                Bem vindo(a) a
+
+            </span>
+
+            <br>
+
+            <span class="azul">
+
+                CONEXÃO 3D
+
+            </span>
+
+        </h1>
+
+
+        <div class="hero-description">
+
+            <p>
+
+                Você que ama dar vida aos personagens
+                e que gosta de deixar a sua casa com a
+                sua cara, esse é o lugar certo! 🎯
+
+            </p>
+
+
+            <br>
+
+
+            <p>
+
+                Aqui fazemos os
+                <strong>Funko Pops</strong>
+                dos seus personagens favoritos ou até
+                mesmo de algum familiar que você ame e
+                queira transformá-lo(a) em um boneco
+                estilo FUNKO com qualidade e toda a magia
+                que você procura para colecionar! 🧸✨
+
+            </p>
+
+
+            <br>
+
+
+            <p>
+
+                E para completar, nossos
+                <strong>dioramas</strong>
+                são cenários feitos com todo o carinho,
+                que parecem trazer as histórias para a
+                vida real! 🎬🏞️
+
+            </p>
+
+
+            <br>
+
+
+            <p>
+
+                Quer algo exclusivo?
+                Fazemos
+                <strong>personalização total!</strong>
+                Crie peças do jeito que você imaginou,
+                algo único e só seu! 🎨✏️
+
+            </p>
+
+
+            <br>
+
+
+            <p>
+
+                Ah, e não para por aí! Temos também
+                artigos lindos para a sua casa:
+                decoração e utilidades cheias de estilo
+                para deixar seu lar muito mais especial!
+                🏠💖
+
+            </p>
+
+
+            <br>
+
+
+            <p>
+
+                Venha conhecer a
+                <strong>CONEXÃO 3D</strong>
+                — onde a paixão, a criatividade e a arte
+                estão no mesmo lugar e dentro do seu lar!
+
+            </p>
+
+        </div>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#produtos"
+                class="btn btn-primary"
+            >
+
+                Ver produtos
+
+            </a>
+
+
+            <a
+                href="https://wa.me/5571983865877?text=Olá!%20Vim%20pelo%20site%20da%20Conexão%203D%20e%20quero%20saber%20mais."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-whatsapp"
+            >
+
+                💬 Falar no WhatsApp
+
+            </a>
+
+        </div>
+
     </div>
 
-    <div class="feature">
-      <div class="icon">🧊</div>
-      <h3>Visualização 3D</h3>
-      <p>Gire os modelos, observe diferentes ângulos e visualize os produtos em três dimensões.</p>
+
+    <div class="scroll-indicator">
+
+        ↓ Role para conhecer
+
     </div>
 
-    <div class="feature">
-      <div class="icon">💡</div>
-      <h3>Ideias criativas</h3>
-      <p>Produtos decorativos, brinquedos, acessórios e objetos personalizados.</p>
-    </div>
-  </div>
 </section>
 
-<section class="about" id="sobre">
-  <div class="tag">CONHEÇA NOSSA MARCA</div>
-  <h2>A10 Variedades</h2>
-  <p>
-    Somos uma marca dedicada à criatividade e à produção de
-    objetos variados. Nossa proposta é transformar ideias em
-    produtos, oferecendo opções criativas e personalizáveis
-    para diferentes gostos.
-  </p>
-  <a href="#produtos" class="primary">CONHECER CATÁLOGO</a>
+
+
+<!-- ==========================================
+     PRODUTOS
+=========================================== -->
+
+<section
+    class="products"
+    id="produtos"
+>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+
+                Nossas
+                <span>criações</span>
+
+            </h2>
+
+
+            <p>
+
+                Algumas das coisas incríveis que podemos
+                criar para você.
+
+            </p>
+
+        </div>
+
+
+        <!-- ==================================
+             GRID DOS 16 CARDS
+        =================================== -->
+
+        <div class="product-grid">
+
+
+            <!-- CARD 1 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="2025-12-13_20ffbfef7e5678.webp"
+                    alt="Chaveiros personalizados"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        🔑 Chaveiros Personalizados
+
+                    </h3>
+
+
+                    <p>
+
+                        Seu personagem, símbolo,
+                        nome ou ideia transformado
+                        em um chaveiro exclusivo.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ 19,30
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Chaveiros Personalizados - R$ 19,30')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 2 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="2025-12-14_c27d7d95ff1bd.webp"
+                    alt="Brinquedo personalizado em impressão 3D"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        🧸 Brinquedo Personalizado
+
+                    </h3>
+
+
+                    <p>
+
+                        Imaginou? A gente cria.
+                        Transforme sua ideia em uma
+                        peça divertida, criativa e cheia
+                        de personalidade.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Brinquedo Personalizado')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 3 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="93c5608c-a032-4824-9848-77f17c03952c.jpg"
+                    alt="Itens personalizados"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        🥤 Itens Personalizados
+
+                    </h3>
+
+
+                    <p>
+
+                        Quer algo exclusivo?
+                        Fazemos personalização total!
+                        Crie peças ou personagens do jeito
+                        que você imaginou.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Itens Personalizados - R$ Negociar')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 4 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="D_NQ_NP_2X_956693-MLB93939159810_102025-F-dupla-vasos-ceramica-decorativos-entrelacados--enfeite-rack.webp"
+                    alt="Artigos Decorativos Para Casa"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Artigos Decorativos Para Casa
+
+                    </h3>
+
+
+                    <p>
+
+                        Temos também artigos lindos para
+                        a sua casa: decoração e utilidades
+                        cheias de estilo para deixar seu
+                        lar muito mais especial! 🏠💖
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Artigos Decorativos - R$ Negociar')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 5 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="6e78eb58-cd03-4bcc-ae3b-99d27935dfbe.jpg"
+                    alt="Porta-Lápis"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Porta-Lápis
+
+                    </h3>
+
+
+                    <p>
+
+                        Porta-Lápis com capacidade
+                        de guardar +30 lápis e canetas!
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ 39,90
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Porta-Lápis - R$ 39,90')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 6 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Estamos preparando uma
+                        nova criação especial para
+                        você.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 7 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Uma nova criação da
+                        Conexão 3D está chegando.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 7')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 8 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Em breve teremos mais
+                        uma criação disponível.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 8')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 9 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Mais uma novidade da
+                        Conexão 3D em preparação.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 9')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 10 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Uma nova peça criativa
+                        está sendo preparada.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 10')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 11 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Aguarde uma nova criação
+                        exclusiva da Conexão 3D.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 11')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 12 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Estamos trabalhando em
+                        mais uma ideia incrível.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 12')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 13 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Em breve uma nova peça
+                        poderá fazer parte do catálogo.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 13')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 14 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Novidade sendo criada
+                        especialmente para o catálogo.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 14')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 15 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Mais uma criação exclusiva
+                        está sendo preparada.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 15')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CARD 16 -->
+
+            <article class="product-card">
+
+                <img
+                    class="product-image"
+                    src="dba80f244c36e40377902ee652eb3d0a.jpg"
+                    alt="Produto em edição"
+                    loading="lazy"
+                >
+
+
+                <div class="product-content">
+
+                    <h3>
+
+                        Produto em edição
+
+                    </h3>
+
+
+                    <p>
+
+                        Nossa próxima criação
+                        pode estar aqui.
+
+                    </p>
+
+
+                    <div class="price">
+
+                        R$ Negociar
+
+                    </div>
+
+
+                    <button
+                        class="acquire"
+                        onclick="comprar('Produto em edição 16')"
+                    >
+
+                        🛒 Adquirir
+
+                    </button>
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
 </section>
+
+
+
+<!-- ==========================================
+     SERVIÇOS
+=========================================== -->
+
+<section
+    class="services"
+    id="servicos"
+>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+
+                Você imagina.
+                <span>A gente imprime.</span>
+
+            </h2>
+
+
+            <p>
+
+                <h3>
+
+                    Transformaremos
+                    <span
+                        style="color: #0877ff;"
+                    >
+                        Criatividades
+                    </span>
+                    Em Objetivos Reais
+
+                </h3>
+
+            </p>
+
+        </div>
+
+
+        <div class="service-grid">
+
+
+            <div class="service">
+
+                <div class="service-icon">
+
+                    🧸
+
+                </div>
+
+
+                <h3>
+
+                    Funko Pops
+
+                </h3>
+
+
+                <p>
+
+                    Transforme personagens ou
+                    pessoas em bonecos <span style="color: var(--verde);"> Estilo Funko.</span>
+                </p>
+
+            </div>
+
+
+
+            <div class="service">
+
+                <div class="service-icon">
+
+                    🏞️
+
+                </div>
+
+
+                <h3>
+
+                    Dioramas
+
+                </h3>
+
+
+                <p>
+
+                    Cenários que fazem suas historias <span style="color: var(--verde);"> Ganharem Vida</span>
+
+                </p>
+
+            </div>
+
+
+
+            <div class="service">
+
+                <div class="service-icon">
+
+                    🎨
+
+                </div>
+
+
+                <h3>
+
+                    Personalizados
+
+                </h3>
+
+
+                <p>
+
+                    Você manda a ideia e nós
+                    <span style="color: var(--verde);"> Transformamos</span> em uma peça.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="service">
+
+                <div class="service-icon">
+
+                    🏠
+
+                </div>
+
+
+                <h3>
+
+                    Casa & Decoração
+
+                </h3>
+
+
+                <p>
+
+                    Peças criativas para deixar
+                    seu espaço ainda mais <span style="color: var(--verde);"> especial.</span>
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     PERSONALIZAÇÃO
+=========================================== -->
+
+<section
+    class="custom"
+    id="personalizado"
+>
+
+    <div class="custom-content">
+
+        <h2>
+
+            Teve uma ideia maluca?
+
+            <br>
+
+            <strong>
+                MANDA PRA GENTE!
+            </strong>
+
+            🚀
+
+        </h2>
+
+
+        <p>
+
+            Não Precisa existir no catálogo.
+            Na Conexão 3D, sua <span class="azul">imaginação</span> vira
+            uma peça de <span class="verde">Verdade!</span>
+        </p>
+
+
+        <a
+            href="https://wa.me/5571983865877?text=Olá!%20Tenho%20uma%20ideia%20para%20uma%20impressão%203D%20personalizada."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn"
+        >
+
+            💡 Quero criar minha peça
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     FAQ
+=========================================== -->
+
+<section
+    class="faq"
+    id="faq"
+>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+
+                Perguntas
+                <span>frequentes</span>
+
+            </h2>
+
+
+            <p>
+
+                Algumas respostas para facilitar
+                sua experiência.
+
+            </p>
+
+        </div>
+
+
+        <div class="faq-container">
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Onde compro?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <p>
+
+                        Pelo WhatsApp da loja.
+                        Clique em qualquer botão
+                        "Adquirir" do site e fale diretamente
+                        com a Conexão 3D.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Vocês fazem produtos personalizados?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <p>
+
+                        Sim! Você pode enviar sua ideia,
+                        imagem, personagem, logo ou referência
+                        e conversamos sobre a melhor forma de
+                        transformar sua ideia em uma impressão 3D.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Posso mandar uma foto?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <p>
+
+                        Sim. Fotos e referências podem ser
+                        enviadas pelo WhatsApp para avaliarmos
+                        sua ideia.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Vocês fazem Funko personalizado?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <p>
+
+                        Sim! Podemos criar bonecos inspirados
+                        em personagens ou transformar uma pessoa
+                        em um boneco estilo Funko.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Como entro em contato com o suporte?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <p>
+
+                        Você pode entrar em contato pelo
+                        WhatsApp ou pelo e-mail:
+
+                        <strong>
+                            marlonreis167@gmail.com
+                        </strong>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question">
+
+                    Vocês fazem qualquer coisa?
+
+                    <span>
+                        +
+                    </span>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <p>
+
+                        Trabalhamos com diversos tipos
+                        de peças. Se você consegue imaginar,
+                        mande a ideia para nós e veremos como
+                        transformá-la em uma peça impressa em 3D.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
 
 </main>
 
+
+
+<!-- ==========================================
+     RODAPÉ
+=========================================== -->
+
 <footer>
-  <div><strong>A10 VARIEDADES</strong><br>Ideias que ganham forma.</div>
-  <div>© 2026 A10 Variedades. Todos os direitos reservados.
-  
-  
-  Contatos
-  
-  &1983857777
-  A10_variedades
-  Marlonreis167@gmail.com</div>
+
+    <div class="footer-content">
+
+
+        <div>
+
+            <div class="footer-logo">
+
+                CONEXÃO<span>3D</span>
+
+            </div>
+
+
+            <p>
+
+                Impressões 3D criativas,
+                personalizadas e feitas para
+                transformar suas ideias em realidade.
+
+            </p>
+
+        </div>
+
+
+
+        <div>
+
+            <h4>
+
+                Navegação
+
+            </h4>
+
+
+            <a href="#inicio">
+
+                Início
+
+            </a>
+
+
+            <a href="#produtos">
+
+                Produtos
+
+            </a>
+
+
+            <a href="#servicos">
+
+                Serviços
+
+            </a>
+
+
+            <a href="#faq">
+
+                Perguntas frequentes
+
+            </a>
+
+        </div>
+
+
+
+        <div>
+
+            <h4>
+
+                Contato
+
+            </h4>
+
+
+            <a
+                href="https://wa.me/5571983865877"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                📱 WhatsApp
+
+            </a>
+
+
+            <a
+                href="mailto:marlonreis167@gmail.com"
+            >
+
+                📧 E-mail
+
+            </a>
+
+
+            <p>
+
+                71 98386-5877
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 CONEXÃO 3D —
+        Impressões criativas e personalizadas.
+
+    </div>
+
 </footer>
 
-<!-- CARRINHO -->
 
-<div class="cart-panel" id="cartPanel">
-  <h3>🛒 Seu carrinho</h3>
-  <div id="cartItems"><p class="empty">Seu carrinho está vazio.</p></div>
-  <div class="cart-total" id="cartTotal">Total: R$ 0,00</div>
-</div>
 
-<!-- VISUALIZADOR 3D -->
+<!-- ==========================================
+     WHATSAPP FLUTUANTE
+=========================================== -->
 
-<div class="viewer" id="viewer">
+<a
+    href="https://wa.me/5571983865877?text=Olá!%20Vim%20pelo%20site%20da%20Conexão%203D."
+    target="_blank"
+    rel="noopener noreferrer"
+    class="whatsapp-float"
+    aria-label="Falar com a Conexão 3D pelo WhatsApp"
+>
 
-  <div class="viewer-header">
-    <h2>◈ A10 STUDIO 3D</h2>
-    <button class="close" onclick="closeViewer()">✕ Fechar</button>
-  </div>
+    💬
 
-  <div class="viewer-body">
+</a>
 
-    <div class="canvas-area">
-      <canvas id="modelCanvas"></canvas>
-      <div class="rotate-tip">↔ Arraste para girar • Scroll para aproximar</div>
-    </div>
 
-    <aside class="controls">
-      <div class="tag">PERSONALIZAÇÃO</div>
-      <h3 id="modelName">Produto</h3>
-      <p id="modelDescription">Visualize seu produto em 3D e escolha uma cor.</p>
 
-      <h3>Escolha uma cor</h3>
-      <div class="palette" id="palette"></div>
+<script>
 
-      <button class="reset" onclick="resetModel()">↺ Restaurar modelo</button>
+    /* ==========================================
+       WHATSAPP
+    ========================================== */
 
-      <button class="viewer-buy" id="viewerBuy">
-        ADICIONAR AO CARRINHO
-      </button>
-    </aside>
+    function comprar(produto) {
 
-  </div>
-</div>
+        const numero =
+            "5571983865877";
 
-<script type="module">
-import * as THREE from "three";
-import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-const products = [
-  {id:1,name:"Espada Fantasia 3D",category:"BRINQUEDOS",price:39.90,emoji:"⚔️",type:"sword",desc:"Espada decorativa de fantasia, com visual de brinquedo."},
-  {id:2,name:"Chaveiro Estrela",category:"CHAVEIROS",price:7.90,emoji:"⭐",type:"star",desc:"Chaveiro personalizado em formato de estrela."},
-  {id:3,name:"Chaveiro Coração",category:"CHAVEIROS",price:8.90,emoji:"❤️",type:"heart",desc:"Um acessório criativo em formato de coração."},
-  {id:4,name:"Vaso Moderno",category:"DECORAÇÃO",price:24.90,emoji:"🏺",type:"vase",desc:"Vaso decorativo com estilo moderno."},
-  {id:5,name:"Robô Miniatura",category:"BRINQUEDOS",price:19.90,emoji:"🤖",type:"robot",desc:"Mini robô decorativo e divertido."},
-  {id:6,name:"Dinossauro 3D",category:"BRINQUEDOS",price:22.90,emoji:"🦖",type:"dino",desc:"Dinossauro estilizado para coleção."},
-  {id:7,name:"Chaveiro Controle",category:"CHAVEIROS",price:9.90,emoji:"🎮",type:"controller",desc:"Chaveiro inspirado em controles de videogame."},
-  {id:8,name:"Vaso Geométrico",category:"DECORAÇÃO",price:29.90,emoji:"🪴",type:"vase2",desc:"Peça geométrica para decorar ambientes."},
-  {id:9,name:"Boneco Articulado",category:"BRINQUEDOS",price:17.90,emoji:"🧸",type:"toy",desc:"Boneco estilizado para coleção e diversão."}
-];
+        const mensagem =
+            `Olá! Vim pelo site da CONEXÃO 3D e tenho interesse em: ${produto}. Gostaria de saber mais informações.`;
 
-let cart = [];
-let selectedProduct = null;
-let selectedColor = "#f4f4f4";
-let scene, camera, renderer, controls, model;
-let animationId = null;
 
-const colors = [
-  {name:"Branco",value:"#f4f4f4"},
-  {name:"Preto",value:"#20232b"},
-  {name:"Azul",value:"#008cff"},
-  {name:"Vermelho",value:"#e83950"},
-  {name:"Verde",value:"#16b978"},
-  {name:"Amarelo",value:"#f5cb38"},
-  {name:"Roxo",value:"#9257df"},
-  {name:"Laranja",value:"#fa8739"}
-];
+        const url =
+            `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
 
-const money = value =>
-  value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 
-const grid = document.getElementById("productGrid");
+        window.open(
+            url,
+            "_blank",
+            "noopener,noreferrer"
+        );
 
-products.forEach(product => {
-  const card = document.createElement("article");
-  card.className = "product-card";
-
-  card.innerHTML = `
-    <div class="product-art">${product.emoji}</div>
-    <div class="product-info">
-      <small>${product.category}</small>
-      <h3>${product.name}</h3>
-      <p class="description">${product.desc}</p>
-      <div class="price">${money(product.price)} <span> / unidade</span></div>
-      <div class="actions">
-        <button class="buy" data-action="buy">COMPRAR</button>
-        <button class="view" data-action="view">VISUALIZAR 3D</button>
-      </div>
-    </div>
-  `;
-
-  card.querySelector('[data-action="buy"]').addEventListener("click",()=>{
-    addCart(product);
-  });
-
-  card.querySelector('[data-action="view"]').addEventListener("click",()=>{
-    openViewer(product);
-  });
-
-  grid.appendChild(card);
-});
-
-// CARRINHO
-
-window.addCart = function(product) {
-  cart.push(product);
-  updateCart();
-};
-
-function updateCart() {
-  document.getElementById("cartCount").textContent = cart.length;
-
-  const items = document.getElementById("cartItems");
-
-  if (!cart.length) {
-    items.innerHTML = '<p class="empty">Seu carrinho está vazio.</p>';
-  } else {
-    items.innerHTML = cart.map((item,index)=>`
-      <div class="cart-item">
-        ${item.emoji} ${item.name}
-        <strong>${money(item.price)}</strong>
-        <button data-remove="${index}" style="float:right;background:none;color:#ff7180;border:0">✕</button>
-      </div>
-    `).join("");
-
-    items.querySelectorAll("[data-remove]").forEach(button=>{
-      button.addEventListener("click",()=>{
-        cart.splice(Number(button.dataset.remove),1);
-        updateCart();
-      });
-    });
-  }
-
-  const total = cart.reduce((sum,item)=>sum+item.price,0);
-  document.getElementById("cartTotal").textContent = "Total: "+money(total);
-}
-
-window.toggleCart = function() {
-  document.getElementById("cartPanel").classList.toggle("active");
-};
-
-// VISUALIZADOR
-
-window.openViewer = function(product) {
-  selectedProduct = product;
-  selectedColor = "#f4f4f4";
-
-  document.getElementById("viewer").classList.add("active");
-  document.getElementById("modelName").textContent = product.name;
-  document.getElementById("modelDescription").textContent = product.desc;
-
-  createPalette();
-  init3D(product);
-};
-
-window.closeViewer = function() {
-  document.getElementById("viewer").classList.remove("active");
-
-  if (animationId) cancelAnimationFrame(animationId);
-
-  if (renderer) {
-    renderer.dispose();
-    renderer.domElement.remove();
-  }
-
-  scene = null;
-  renderer = null;
-  model = null;
-};
-
-function createPalette() {
-  const palette = document.getElementById("palette");
-  palette.innerHTML = "";
-
-  colors.forEach(color=>{
-    const button = document.createElement("button");
-    button.className = "color";
-    button.style.background = color.value;
-    button.title = color.name;
-
-    if(color.value === selectedColor) button.classList.add("selected");
-
-    button.addEventListener("click",()=>{
-      selectedColor = color.value;
-
-      document.querySelectorAll(".color").forEach(el=>
-        el.classList.remove("selected")
-      );
-
-      button.classList.add("selected");
-      applyColor(selectedColor);
-    });
-
-    palette.appendChild(button);
-  });
-
-  document.getElementById("viewerBuy").onclick = ()=>{
-    if(selectedProduct) {
-      addCart(selectedProduct);
-      closeViewer();
-      document.getElementById("cartPanel").classList.add("active");
     }
-  };
-}
 
-function material() {
-  return new THREE.MeshStandardMaterial({
-    color:selectedColor,
-    roughness:0.45,
-    metalness:0.08
-  });
-}
 
-function mesh(geometry,group,x,y,z,sx=1,sy=1,sz=1) {
-  const object = new THREE.Mesh(geometry,material());
-  object.position.set(x,y,z);
-  object.scale.set(sx,sy,sz);
-  object.castShadow = true;
-  object.receiveShadow = true;
-  group.add(object);
-  return object;
-}
 
-function createModel(type) {
-  const group = new THREE.Group();
+    /* ==========================================
+       FAQ
+    ========================================== */
 
-  const box = (x,y,z,sx,sy,sz)=>
-    mesh(new THREE.BoxGeometry(sx,sy,sz),group,x,y,z);
+    const perguntas =
+        document.querySelectorAll(
+            ".faq-question"
+        );
 
-  const sphere = (x,y,z,sx,sy,sz)=>
-    mesh(new THREE.SphereGeometry(1,32,24),group,x,y,z,sx,sy,sz);
 
-  const cylinder = (x,y,z,r1,r2,h)=>
-    mesh(new THREE.CylinderGeometry(r1,r2,h,32),group,x,y,z);
+    perguntas.forEach(
+        pergunta => {
 
-  if(type === "sword") {
-    // Modelo de espada de fantasia estilizada e sem fio funcional.
-    box(0,0.95,0,0.20,1.85,0.20);
-    box(0,0.03,0,0.85,0.20,0.25);
-    cylinder(0,-0.58,0,0.12,0.12,1.0);
-    sphere(0,-1.15,0,0.24,0.24,0.24);
-  }
+            pergunta.addEventListener(
+                "click",
+                () => {
 
-  if(type === "star") {
-    const shape = new THREE.Shape();
-    for(let i=0;i<10;i++) {
-      const r=i%2===0?0.9:0.42;
-      const a=i*Math.PI/5-Math.PI/2;
-      const x=Math.cos(a)*r;
-      const y=Math.sin(a)*r;
-      if(i===0) shape.moveTo(x,y);
-      else shape.lineTo(x,y);
-    }
-    shape.closePath();
-    const geo=new THREE.ExtrudeGeometry(shape,{depth:0.2,bevelEnabled:true,bevelThickness:0.06,bevelSize:0.04,bevelSegments:3});
-    mesh(geo,group,0,0,0);
-  }
+                    const item =
+                        pergunta.parentElement;
 
-  if(type === "heart") {
-    sphere(-0.35,0.25,0,0.48,0.48,0.18);
-    sphere(0.35,0.25,0,0.48,0.48,0.18);
-    const point=mesh(new THREE.ConeGeometry(0.65,0.9,4),group,0,-0.35,0);
-    point.rotation.z=Math.PI;
-  }
 
-  if(type === "vase" || type === "vase2") {
-    const points = type==="vase"
-      ? [[0,-1],[.55,-.9],[.65,-.2],[.35,.45],[.3,.95],[.4,1],[.4,1.1]]
-      : [[0,-1],[.7,-.7],[.8,.2],[.4,.7],[.3,1],[.45,1.1]];
+                    const aberto =
+                        item.classList.contains(
+                            "active"
+                        );
 
-    const geo=new THREE.LatheGeometry(
-      points.map(p=>new THREE.Vector2(p[0],p[1])),48
+
+                    document
+                        .querySelectorAll(
+                            ".faq-item"
+                        )
+                        .forEach(
+                            outro => {
+
+                                outro.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    if (!aberto) {
+
+                        item.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
     );
-    mesh(geo,group,0,0,0);
-  }
 
-  if(type === "robot") {
-    box(0,0.25,0,0.95,0.9,0.6);
-    sphere(0,0.95,0,0.55,0.48,0.48);
-    sphere(-0.2,1,0.42,0.08,0.08,0.05);
-    sphere(0.2,1,0.42,0.08,0.08,0.05);
-    box(-0.65,0.25,0,0.22,0.7,0.25);
-    box(0.65,0.25,0,0.22,0.7,0.25);
-    box(-0.23,-0.42,0,0.24,0.55,0.3);
-    box(0.23,-0.42,0,0.24,0.55,0.3);
-  }
 
-  if(type === "dino") {
-    sphere(0,0,0,0.8,0.55,0.48);
-    sphere(0.65,0.5,0,0.42,0.36,0.38);
-    box(-0.75,0.25,0,0.65,0.16,0.16);
-    for(let i=0;i<3;i++){
-      const spike=mesh(new THREE.ConeGeometry(.18,.35,4),group,-.35+i*.35,.65,0);
-    }
-    box(-0.4,-0.55,0,0.22,.5,.24);
-    box(.35,-0.55,0,0.22,.5,.24);
-  }
 
-  if(type === "controller") {
-    const body=mesh(new THREE.BoxGeometry(1.7,.75,.35),group,0,0,0,1,1,1);
-    sphere(-.5,-.08,.22,.14,.14,.08);
-    sphere(-.5,-.08,.22,.06,.06,.04);
-    sphere(.48,.13,.22,.10,.10,.05);
-    sphere(.65,-.12,.22,.10,.10,.05);
-  }
+    /* ==========================================
+       ANIMAÇÃO DOS CARDS
+    ========================================== */
 
-  if(type === "toy") {
-    sphere(0,.65,0,.42,.43,.4);
-    sphere(0,-.12,0,.55,.62,.35);
-    box(-.65,-.12,0,.22,.65,.22);
-    box(.65,-.12,0,.22,.65,.22);
-    box(-.23,-.85,0,.25,.55,.3);
-    box(.23,-.85,0,.25,.55,.3);
-  }
+    const elementosAnimados =
+        document.querySelectorAll(
+            ".product-card, .service"
+        );
 
-  group.position.y = 0;
-  return group;
-}
 
-function init3D(product) {
-  const canvas=document.getElementById("modelCanvas");
-  const area=canvas.parentElement;
+    const observer =
+        new IntersectionObserver(
+            entries => {
 
-  scene=new THREE.Scene();
-  scene.background=new THREE.Color("#0a111e");
+                entries.forEach(
+                    entry => {
 
-  camera=new THREE.PerspectiveCamera(
-    45,area.clientWidth/area.clientHeight,0.1,100
-  );
-  camera.position.set(4,3,5);
+                        if (
+                            entry.isIntersecting
+                        ) {
 
-  renderer=new THREE.WebGLRenderer({
-    canvas,
-    antialias:true,
-    alpha:false
-  });
+                            entry.target.classList.add(
+                                "visible"
+                            );
 
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  renderer.setSize(area.clientWidth,area.clientHeight,false);
-  renderer.shadowMap.enabled=true;
-  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 
-  scene.add(new THREE.AmbientLight(0xffffff,2));
+                            observer.unobserve(
+                                entry.target
+                            );
 
-  const light=new THREE.DirectionalLight(0xffffff,3);
-  light.position.set(4,7,5);
-  light.castShadow=true;
-  scene.add(light);
+                        }
 
-  const blueLight=new THREE.PointLight(0x008cff,30,10);
-  blueLight.position.set(-3,1,2);
-  scene.add(blueLight);
+                    }
+                );
 
-  const floor=new THREE.Mesh(
-    new THREE.CircleGeometry(4,64),
-    new THREE.MeshStandardMaterial({
-      color:"#111c2c",
-      roughness:.8
-    })
-  );
-  floor.rotation.x=-Math.PI/2;
-  floor.position.y=-1.35;
-  floor.receiveShadow=true;
-  scene.add(floor);
+            },
+            {
 
-  model=createModel(product.type);
-  scene.add(model);
+                threshold:
+                    0.12,
 
-  controls=new OrbitControls(camera,renderer.domElement);
-  controls.enableDamping=true;
-  controls.dampingFactor=.06;
-  controls.minDistance=2.5;
-  controls.maxDistance=9;
-  controls.target.set(0,0,0);
+                rootMargin:
+                    "0px 0px -40px 0px"
 
-  window.onresize=()=>{
-    if(!renderer || !camera) return;
-    camera.aspect=area.clientWidth/area.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(area.clientWidth,area.clientHeight,false);
-  };
+            }
+        );
 
-  function animate(){
-    animationId=requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene,camera);
-  }
 
-  animate();
-}
+    elementosAnimados.forEach(
+        elemento => {
 
-function applyColor(color) {
-  if(!model) return;
+            observer.observe(
+                elemento
+            );
 
-  model.traverse(object=>{
-    if(object.isMesh && object.material) {
-      object.material.color.set(color);
-    }
-  });
-}
+        }
+    );
 
-window.resetModel=function(){
-  selectedColor="#f4f4f4";
-  createPalette();
-  applyColor(selectedColor);
-};
+
+
+    /* ==========================================
+       ATRASO SUAVE ENTRE OS CARDS
+    ========================================== */
+
+    document
+        .querySelectorAll(
+            ".product-card"
+        )
+        .forEach(
+            (card, index) => {
+
+                card.style.transitionDelay =
+                    `${index * 0.045}s`;
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".service"
+        )
+        .forEach(
+            (service, index) => {
+
+                service.style.transitionDelay =
+                    `${index * 0.08}s`;
+
+            }
+        );
+
+
+
+    /* ==========================================
+       NAVEGAÇÃO SUAVE
+    ========================================== */
+
+    document
+        .querySelectorAll(
+            'a[href^="#"]'
+        )
+        .forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    event => {
+
+                        const destino =
+                            document.querySelector(
+                                link.getAttribute(
+                                    "href"
+                                )
+                            );
+
+
+                        if (
+                            destino
+                        ) {
+
+                            event.preventDefault();
+
+
+                            destino.scrollIntoView(
+                                {
+                                    behavior:
+                                        "smooth",
+
+                                    block:
+                                        "start"
+                                }
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
 
 </script>
 
+
 </body>
+
 </html>
