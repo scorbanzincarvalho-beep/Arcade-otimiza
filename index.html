@@ -1,12 +1,1004 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
+<title>A10 Variedades | Impressão 3D e Criatividade</title>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<style>
+:root {
+  --bg: #080b12;
+  --panel: #101725;
+  --panel2: #151f30;
+  --blue: #00bfff;
+  --white: #f5f8ff;
+  --muted: #8995a8;
+  --border: rgba(255,255,255,.09);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Inter, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+header {
+  height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8,11,18,.94);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(16px);
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span { color: var(--blue); }
+
+nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+nav a {
+  color: #b8c2d3;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .2s;
+}
+
+nav a:hover { color: var(--blue); }
+
+.cart {
+  border: 1px solid rgba(0,191,255,.4);
+  background: rgba(0,191,255,.1);
+  color: white;
+  padding: 11px 17px;
+  border-radius: 10px;
+}
+
+.hero {
+  min-height: 590px;
+  display: flex;
+  align-items: center;
+  padding: 80px 9%;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(0,145,255,.18), transparent 42%),
+    linear-gradient(120deg,#080b12,#0b1422);
+}
+
+.hero-content { max-width: 700px; z-index: 2; }
+
+.tag {
+  color: var(--blue);
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: clamp(42px,7vw,76px);
+  line-height: 1.06;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+}
+
+.hero h1 span {
+  color: var(--blue);
+  text-shadow: 0 0 35px rgba(0,191,255,.3);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 520px;
+}
+
+.primary {
+  display: inline-block;
+  background: var(--blue);
+  color: #00121c;
+  padding: 16px 26px;
+  font-weight: 800;
+  border-radius: 9px;
+  border: none;
+  margin-top: 30px;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(0,191,255,.35);
+}
+
+.hero-decoration {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(0,191,255,.2);
+  border-radius: 50%;
+  box-shadow: 0 0 80px rgba(0,191,255,.1);
+  display: grid;
+  place-items: center;
+  font-size: 130px;
+}
+
+section { padding: 90px 8%; }
+
+.section-heading { margin-bottom: 38px; }
+
+.section-heading small {
+  color: var(--blue);
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.section-heading h2 {
+  font-size: clamp(30px,4vw,43px);
+  margin-top: 13px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.7;
+}
+
+.products {
+  background: #0b101a;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 22px;
+}
+
+.product-card {
+  background: linear-gradient(145deg,#141e2e,#0e1521);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.product-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(0,191,255,.55);
+  box-shadow: 0 15px 40px rgba(0,0,0,.3);
+}
+
+.product-art {
+  height: 210px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle,rgba(0,191,255,.12),transparent 65%),
+    #111b2a;
+  font-size: 90px;
+}
+
+.product-info { padding: 22px; }
+
+.product-info small {
+  color: var(--blue);
+  letter-spacing: 1px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.product-info h3 {
+  font-size: 19px;
+  margin: 10px 0;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 42px;
+}
+
+.price {
+  font-size: 25px;
+  font-weight: 900;
+  margin: 18px 0;
+}
+
+.price span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: normal;
+}
+
+.actions { display: flex; gap: 10px; }
+
+.actions button {
+  flex: 1;
+  padding: 12px 7px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.buy {
+  background: var(--blue);
+  color: #00121c;
+  border: none;
+}
+
+.view {
+  background: transparent;
+  color: white;
+  border: 1px solid #40536b;
+}
+
+.view:hover { border-color: var(--blue); color: var(--blue); }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+
+.feature {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 30px;
+  border-radius: 14px;
+}
+
+.feature .icon { font-size: 32px; }
+
+.feature h3 { margin: 18px 0 10px; }
+
+.feature p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.about {
+  background: linear-gradient(110deg,#0c1625,#101d2e);
+  text-align: center;
+}
+
+.about p {
+  color: var(--muted);
+  max-width: 680px;
+  margin: 20px auto;
+  line-height: 1.9;
+}
+
+footer {
+  padding: 45px 8%;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+/* VISUALIZADOR 3D */
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #080d17;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.viewer.active { display: flex; }
+
+.viewer-header {
+  height: 70px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  border-bottom: 1px solid var(--border);
+}
+
+.viewer-header h2 { font-size: 18px; }
+
+.close {
+  background: #1c293a;
+  color: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 17px;
+}
+
+.viewer-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 300px;
+  min-height: 500px;
+}
+
+.canvas-area {
+  position: relative;
+  min-height: 500px;
+  background:
+    radial-gradient(ellipse at center,rgba(0,191,255,.09),transparent 65%),
+    #0a111e;
+}
+
+#modelCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  min-height: 500px;
+}
+
+.rotate-tip {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #8799b1;
+  font-size: 12px;
+  background: rgba(0,0,0,.4);
+  padding: 10px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.controls {
+  background: #111a28;
+  border-left: 1px solid var(--border);
+  padding: 28px 22px;
+}
+
+.controls h3 { margin-bottom: 12px; }
+
+.controls p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.palette {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 13px;
+  margin: 20px 0 30px;
+}
+
+.color {
+  height: 39px;
+  width: 39px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.2);
+  cursor: pointer;
+  transition: .2s;
+}
+
+.color.selected {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.reset {
+  background: transparent;
+  color: white;
+  border: 1px solid #43536b;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.viewer-buy {
+  background: var(--blue);
+  color: #00121c;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.cart-panel {
+  position: fixed;
+  right: 15px;
+  top: 85px;
+  z-index: 50;
+  width: min(360px,calc(100% - 30px));
+  padding: 22px;
+  background: #152033;
+  border: 1px solid rgba(0,191,255,.4);
+  border-radius: 14px;
+  display: none;
+  box-shadow: 0 15px 50px #0009;
+}
+
+.cart-panel.active { display: block; }
+
+.cart-panel h3 { margin-bottom: 15px; }
+.cart-item { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.cart-total { margin-top: 18px; font-weight: bold; }
+
+.empty { color: var(--muted); font-size: 13px; }
+
+@media(max-width:850px) {
+  .hero-decoration { opacity: .18; right: -100px; }
+  .product-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .viewer-body { grid-template-columns: 1fr; }
+  .controls { border-left: none; border-top: 1px solid var(--border); }
+  .canvas-area, #modelCanvas { min-height: 390px; }
+  .features { grid-template-columns: 1fr; }
+}
+
+@media(max-width:560px) {
+  header { padding: 0 5%; height: 65px; }
+  nav { gap: 10px; }
+  nav a { display: none; }
+  .logo { font-size: 22px; }
+  .cart { padding: 9px 11px; font-size: 12px; }
+  .hero { min-height: 510px; padding: 65px 7%; }
+  .hero h1 { letter-spacing: -2px; }
+  section { padding: 65px 6%; }
+  .product-grid { grid-template-columns: 1fr; gap: 17px; }
+  .product-art { height: 190px; }
+  .viewer-header { padding: 0 4%; }
+  .canvas-area, #modelCanvas { min-height: 340px; }
+  .controls { padding: 24px; }
+  footer { flex-direction: column; }
+}
+</style>
 </head>
+
 <body>
-     <h1>teste progamamentos</h1>
-    <p>fazenoUTestante</p>
-    
+
+<header>
+  <div class="logo">A10<span>.</span> VARIEDADES</div>
+
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#sobre">Sobre</a>
+  </nav>
+
+  <button class="cart" onclick="toggleCart()">
+    🛒 Carrinho (<span id="cartCount">0</span>)
+  </button>
+</header>
+
+<main>
+
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <div class="tag">TECNOLOGIA • CRIATIVIDADE • PERSONALIZAÇÃO</div>
+
+    <h1>IDEIAS QUE<br>GANHAM <span>FORMA.</span></h1>
+
+    <p>
+      Bem-vindo à A10 Variedades. Criamos produtos criativos,
+      brinquedos, chaveiros, peças decorativas e muito mais.
+      Escolha seu produto, personalize e descubra novas possibilidades.
+    </p>
+
+    <a href="#produtos" class="primary">EXPLORAR PRODUTOS →</a>
+  </div>
+
+  <div class="hero-decoration">✦</div>
+</section>
+
+<section class="products" id="produtos">
+  <div class="section-heading">
+    <small>CATÁLOGO A10</small>
+    <h2>Nossos produtos</h2>
+    <p>Escolha um produto e experimente a visualização 3D antes de comprar.</p>
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<section id="diferenciais">
+  <div class="section-heading">
+    <small>POR QUE A A10?</small>
+    <h2>Criatividade em cada detalhe.</h2>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="icon">🎨</div>
+      <h3>Personalização</h3>
+      <p>Escolha as cores dos seus produtos e encontre a combinação que mais combina com sua ideia.</p>
+    </div>
+
+    <div class="feature">
+      <div class="icon">🧊</div>
+      <h3>Visualização 3D</h3>
+      <p>Gire os modelos, observe diferentes ângulos e visualize os produtos em três dimensões.</p>
+    </div>
+
+    <div class="feature">
+      <div class="icon">💡</div>
+      <h3>Ideias criativas</h3>
+      <p>Produtos decorativos, brinquedos, acessórios e objetos personalizados.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="tag">CONHEÇA NOSSA MARCA</div>
+  <h2>A10 Variedades</h2>
+  <p>
+    Somos uma marca dedicada à criatividade e à produção de
+    objetos variados. Nossa proposta é transformar ideias em
+    produtos, oferecendo opções criativas e personalizáveis
+    para diferentes gostos.
+  </p>
+  <a href="#produtos" class="primary">CONHECER CATÁLOGO</a>
+</section>
+
+</main>
+
+<footer>
+  <div><strong>A10 VARIEDADES</strong><br>Ideias que ganham forma.</div>
+  <div>© 2026 A10 Variedades. Todos os direitos reservados.</div>
+</footer>
+
+<!-- CARRINHO -->
+
+<div class="cart-panel" id="cartPanel">
+  <h3>🛒 Seu carrinho</h3>
+  <div id="cartItems"><p class="empty">Seu carrinho está vazio.</p></div>
+  <div class="cart-total" id="cartTotal">Total: R$ 0,00</div>
+</div>
+
+<!-- VISUALIZADOR 3D -->
+
+<div class="viewer" id="viewer">
+
+  <div class="viewer-header">
+    <h2>◈ A10 STUDIO 3D</h2>
+    <button class="close" onclick="closeViewer()">✕ Fechar</button>
+  </div>
+
+  <div class="viewer-body">
+
+    <div class="canvas-area">
+      <canvas id="modelCanvas"></canvas>
+      <div class="rotate-tip">↔ Arraste para girar • Scroll para aproximar</div>
+    </div>
+
+    <aside class="controls">
+      <div class="tag">PERSONALIZAÇÃO</div>
+      <h3 id="modelName">Produto</h3>
+      <p id="modelDescription">Visualize seu produto em 3D e escolha uma cor.</p>
+
+      <h3>Escolha uma cor</h3>
+      <div class="palette" id="palette"></div>
+
+      <button class="reset" onclick="resetModel()">↺ Restaurar modelo</button>
+
+      <button class="viewer-buy" id="viewerBuy">
+        ADICIONAR AO CARRINHO
+      </button>
+    </aside>
+
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const products = [
+  {id:1,name:"Espada Fantasia 3D",category:"BRINQUEDOS",price:39.90,emoji:"⚔️",type:"sword",desc:"Espada decorativa de fantasia, com visual de brinquedo."},
+  {id:2,name:"Chaveiro Estrela",category:"CHAVEIROS",price:7.90,emoji:"⭐",type:"star",desc:"Chaveiro personalizado em formato de estrela."},
+  {id:3,name:"Chaveiro Coração",category:"CHAVEIROS",price:8.90,emoji:"❤️",type:"heart",desc:"Um acessório criativo em formato de coração."},
+  {id:4,name:"Vaso Moderno",category:"DECORAÇÃO",price:24.90,emoji:"🏺",type:"vase",desc:"Vaso decorativo com estilo moderno."},
+  {id:5,name:"Robô Miniatura",category:"BRINQUEDOS",price:19.90,emoji:"🤖",type:"robot",desc:"Mini robô decorativo e divertido."},
+  {id:6,name:"Dinossauro 3D",category:"BRINQUEDOS",price:22.90,emoji:"🦖",type:"dino",desc:"Dinossauro estilizado para coleção."},
+  {id:7,name:"Chaveiro Controle",category:"CHAVEIROS",price:9.90,emoji:"🎮",type:"controller",desc:"Chaveiro inspirado em controles de videogame."},
+  {id:8,name:"Vaso Geométrico",category:"DECORAÇÃO",price:29.90,emoji:"🪴",type:"vase2",desc:"Peça geométrica para decorar ambientes."},
+  {id:9,name:"Boneco Articulado",category:"BRINQUEDOS",price:17.90,emoji:"🧸",type:"toy",desc:"Boneco estilizado para coleção e diversão."}
+];
+
+let cart = [];
+let selectedProduct = null;
+let selectedColor = "#f4f4f4";
+let scene, camera, renderer, controls, model;
+let animationId = null;
+
+const colors = [
+  {name:"Branco",value:"#f4f4f4"},
+  {name:"Preto",value:"#20232b"},
+  {name:"Azul",value:"#008cff"},
+  {name:"Vermelho",value:"#e83950"},
+  {name:"Verde",value:"#16b978"},
+  {name:"Amarelo",value:"#f5cb38"},
+  {name:"Roxo",value:"#9257df"},
+  {name:"Laranja",value:"#fa8739"}
+];
+
+const money = value =>
+  value.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+
+const grid = document.getElementById("productGrid");
+
+products.forEach(product => {
+  const card = document.createElement("article");
+  card.className = "product-card";
+
+  card.innerHTML = `
+    <div class="product-art">${product.emoji}</div>
+    <div class="product-info">
+      <small>${product.category}</small>
+      <h3>${product.name}</h3>
+      <p class="description">${product.desc}</p>
+      <div class="price">${money(product.price)} <span> / unidade</span></div>
+      <div class="actions">
+        <button class="buy" data-action="buy">COMPRAR</button>
+        <button class="view" data-action="view">VISUALIZAR 3D</button>
+      </div>
+    </div>
+  `;
+
+  card.querySelector('[data-action="buy"]').addEventListener("click",()=>{
+    addCart(product);
+  });
+
+  card.querySelector('[data-action="view"]').addEventListener("click",()=>{
+    openViewer(product);
+  });
+
+  grid.appendChild(card);
+});
+
+// CARRINHO
+
+window.addCart = function(product) {
+  cart.push(product);
+  updateCart();
+};
+
+function updateCart() {
+  document.getElementById("cartCount").textContent = cart.length;
+
+  const items = document.getElementById("cartItems");
+
+  if (!cart.length) {
+    items.innerHTML = '<p class="empty">Seu carrinho está vazio.</p>';
+  } else {
+    items.innerHTML = cart.map((item,index)=>`
+      <div class="cart-item">
+        ${item.emoji} ${item.name}
+        <strong>${money(item.price)}</strong>
+        <button data-remove="${index}" style="float:right;background:none;color:#ff7180;border:0">✕</button>
+      </div>
+    `).join("");
+
+    items.querySelectorAll("[data-remove]").forEach(button=>{
+      button.addEventListener("click",()=>{
+        cart.splice(Number(button.dataset.remove),1);
+        updateCart();
+      });
+    });
+  }
+
+  const total = cart.reduce((sum,item)=>sum+item.price,0);
+  document.getElementById("cartTotal").textContent = "Total: "+money(total);
+}
+
+window.toggleCart = function() {
+  document.getElementById("cartPanel").classList.toggle("active");
+};
+
+// VISUALIZADOR
+
+window.openViewer = function(product) {
+  selectedProduct = product;
+  selectedColor = "#f4f4f4";
+
+  document.getElementById("viewer").classList.add("active");
+  document.getElementById("modelName").textContent = product.name;
+  document.getElementById("modelDescription").textContent = product.desc;
+
+  createPalette();
+  init3D(product);
+};
+
+window.closeViewer = function() {
+  document.getElementById("viewer").classList.remove("active");
+
+  if (animationId) cancelAnimationFrame(animationId);
+
+  if (renderer) {
+    renderer.dispose();
+    renderer.domElement.remove();
+  }
+
+  scene = null;
+  renderer = null;
+  model = null;
+};
+
+function createPalette() {
+  const palette = document.getElementById("palette");
+  palette.innerHTML = "";
+
+  colors.forEach(color=>{
+    const button = document.createElement("button");
+    button.className = "color";
+    button.style.background = color.value;
+    button.title = color.name;
+
+    if(color.value === selectedColor) button.classList.add("selected");
+
+    button.addEventListener("click",()=>{
+      selectedColor = color.value;
+
+      document.querySelectorAll(".color").forEach(el=>
+        el.classList.remove("selected")
+      );
+
+      button.classList.add("selected");
+      applyColor(selectedColor);
+    });
+
+    palette.appendChild(button);
+  });
+
+  document.getElementById("viewerBuy").onclick = ()=>{
+    if(selectedProduct) {
+      addCart(selectedProduct);
+      closeViewer();
+      document.getElementById("cartPanel").classList.add("active");
+    }
+  };
+}
+
+function material() {
+  return new THREE.MeshStandardMaterial({
+    color:selectedColor,
+    roughness:0.45,
+    metalness:0.08
+  });
+}
+
+function mesh(geometry,group,x,y,z,sx=1,sy=1,sz=1) {
+  const object = new THREE.Mesh(geometry,material());
+  object.position.set(x,y,z);
+  object.scale.set(sx,sy,sz);
+  object.castShadow = true;
+  object.receiveShadow = true;
+  group.add(object);
+  return object;
+}
+
+function createModel(type) {
+  const group = new THREE.Group();
+
+  const box = (x,y,z,sx,sy,sz)=>
+    mesh(new THREE.BoxGeometry(sx,sy,sz),group,x,y,z);
+
+  const sphere = (x,y,z,sx,sy,sz)=>
+    mesh(new THREE.SphereGeometry(1,32,24),group,x,y,z,sx,sy,sz);
+
+  const cylinder = (x,y,z,r1,r2,h)=>
+    mesh(new THREE.CylinderGeometry(r1,r2,h,32),group,x,y,z);
+
+  if(type === "sword") {
+    // Modelo de espada de fantasia estilizada e sem fio funcional.
+    box(0,0.95,0,0.20,1.85,0.20);
+    box(0,0.03,0,0.85,0.20,0.25);
+    cylinder(0,-0.58,0,0.12,0.12,1.0);
+    sphere(0,-1.15,0,0.24,0.24,0.24);
+  }
+
+  if(type === "star") {
+    const shape = new THREE.Shape();
+    for(let i=0;i<10;i++) {
+      const r=i%2===0?0.9:0.42;
+      const a=i*Math.PI/5-Math.PI/2;
+      const x=Math.cos(a)*r;
+      const y=Math.sin(a)*r;
+      if(i===0) shape.moveTo(x,y);
+      else shape.lineTo(x,y);
+    }
+    shape.closePath();
+    const geo=new THREE.ExtrudeGeometry(shape,{depth:0.2,bevelEnabled:true,bevelThickness:0.06,bevelSize:0.04,bevelSegments:3});
+    mesh(geo,group,0,0,0);
+  }
+
+  if(type === "heart") {
+    sphere(-0.35,0.25,0,0.48,0.48,0.18);
+    sphere(0.35,0.25,0,0.48,0.48,0.18);
+    const point=mesh(new THREE.ConeGeometry(0.65,0.9,4),group,0,-0.35,0);
+    point.rotation.z=Math.PI;
+  }
+
+  if(type === "vase" || type === "vase2") {
+    const points = type==="vase"
+      ? [[0,-1],[.55,-.9],[.65,-.2],[.35,.45],[.3,.95],[.4,1],[.4,1.1]]
+      : [[0,-1],[.7,-.7],[.8,.2],[.4,.7],[.3,1],[.45,1.1]];
+
+    const geo=new THREE.LatheGeometry(
+      points.map(p=>new THREE.Vector2(p[0],p[1])),48
+    );
+    mesh(geo,group,0,0,0);
+  }
+
+  if(type === "robot") {
+    box(0,0.25,0,0.95,0.9,0.6);
+    sphere(0,0.95,0,0.55,0.48,0.48);
+    sphere(-0.2,1,0.42,0.08,0.08,0.05);
+    sphere(0.2,1,0.42,0.08,0.08,0.05);
+    box(-0.65,0.25,0,0.22,0.7,0.25);
+    box(0.65,0.25,0,0.22,0.7,0.25);
+    box(-0.23,-0.42,0,0.24,0.55,0.3);
+    box(0.23,-0.42,0,0.24,0.55,0.3);
+  }
+
+  if(type === "dino") {
+    sphere(0,0,0,0.8,0.55,0.48);
+    sphere(0.65,0.5,0,0.42,0.36,0.38);
+    box(-0.75,0.25,0,0.65,0.16,0.16);
+    for(let i=0;i<3;i++){
+      const spike=mesh(new THREE.ConeGeometry(.18,.35,4),group,-.35+i*.35,.65,0);
+    }
+    box(-0.4,-0.55,0,0.22,.5,.24);
+    box(.35,-0.55,0,0.22,.5,.24);
+  }
+
+  if(type === "controller") {
+    const body=mesh(new THREE.BoxGeometry(1.7,.75,.35),group,0,0,0,1,1,1);
+    sphere(-.5,-.08,.22,.14,.14,.08);
+    sphere(-.5,-.08,.22,.06,.06,.04);
+    sphere(.48,.13,.22,.10,.10,.05);
+    sphere(.65,-.12,.22,.10,.10,.05);
+  }
+
+  if(type === "toy") {
+    sphere(0,.65,0,.42,.43,.4);
+    sphere(0,-.12,0,.55,.62,.35);
+    box(-.65,-.12,0,.22,.65,.22);
+    box(.65,-.12,0,.22,.65,.22);
+    box(-.23,-.85,0,.25,.55,.3);
+    box(.23,-.85,0,.25,.55,.3);
+  }
+
+  group.position.y = 0;
+  return group;
+}
+
+function init3D(product) {
+  const canvas=document.getElementById("modelCanvas");
+  const area=canvas.parentElement;
+
+  scene=new THREE.Scene();
+  scene.background=new THREE.Color("#0a111e");
+
+  camera=new THREE.PerspectiveCamera(
+    45,area.clientWidth/area.clientHeight,0.1,100
+  );
+  camera.position.set(4,3,5);
+
+  renderer=new THREE.WebGLRenderer({
+    canvas,
+    antialias:true,
+    alpha:false
+  });
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(area.clientWidth,area.clientHeight,false);
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+
+  scene.add(new THREE.AmbientLight(0xffffff,2));
+
+  const light=new THREE.DirectionalLight(0xffffff,3);
+  light.position.set(4,7,5);
+  light.castShadow=true;
+  scene.add(light);
+
+  const blueLight=new THREE.PointLight(0x008cff,30,10);
+  blueLight.position.set(-3,1,2);
+  scene.add(blueLight);
+
+  const floor=new THREE.Mesh(
+    new THREE.CircleGeometry(4,64),
+    new THREE.MeshStandardMaterial({
+      color:"#111c2c",
+      roughness:.8
+    })
+  );
+  floor.rotation.x=-Math.PI/2;
+  floor.position.y=-1.35;
+  floor.receiveShadow=true;
+  scene.add(floor);
+
+  model=createModel(product.type);
+  scene.add(model);
+
+  controls=new OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true;
+  controls.dampingFactor=.06;
+  controls.minDistance=2.5;
+  controls.maxDistance=9;
+  controls.target.set(0,0,0);
+
+  window.onresize=()=>{
+    if(!renderer || !camera) return;
+    camera.aspect=area.clientWidth/area.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(area.clientWidth,area.clientHeight,false);
+  };
+
+  function animate(){
+    animationId=requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene,camera);
+  }
+
+  animate();
+}
+
+function applyColor(color) {
+  if(!model) return;
+
+  model.traverse(object=>{
+    if(object.isMesh && object.material) {
+      object.material.color.set(color);
+    }
+  });
+}
+
+window.resetModel=function(){
+  selectedColor="#f4f4f4";
+  createPalette();
+  applyColor(selectedColor);
+};
+
+</script>
+
 </body>
 </html>
